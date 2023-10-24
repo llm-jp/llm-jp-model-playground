@@ -1,4 +1,4 @@
-import { UnrecordedMessage } from 'generative-ai-use-cases-jp';
+import { PredictParams, UnrecordedMessage } from 'generative-ai-use-cases-jp';
 import {
   SageMakerRuntimeClient,
   InvokeEndpointCommand,
@@ -17,12 +17,15 @@ const PARAMS = {
   temperature: 0.3,
 };
 
-const invoke = async (messages: UnrecordedMessage[]): Promise<string> => {
+const invoke = async (
+  messages: UnrecordedMessage[],
+  params: PredictParams = {}
+): Promise<string> => {
   const command = new InvokeEndpointCommand({
     EndpointName: process.env.MODEL_NAME,
     Body: JSON.stringify({
       inputs: generatePrompt(messages),
-      parameters: PARAMS,
+      parameters: { ...PARAMS, ...params },
     }),
     ContentType: 'application/json',
     Accept: 'application/json',
@@ -32,13 +35,14 @@ const invoke = async (messages: UnrecordedMessage[]): Promise<string> => {
 };
 
 async function* invokeStream(
-  messages: UnrecordedMessage[]
+  messages: UnrecordedMessage[],
+  params: PredictParams = {}
 ): AsyncIterable<string> {
   const command = new InvokeEndpointWithResponseStreamCommand({
     EndpointName: process.env.MODEL_NAME,
     Body: JSON.stringify({
       inputs: generatePrompt(messages),
-      parameters: PARAMS,
+      parameters: { ...PARAMS, ...params },
       stream: true,
     }),
     ContentType: 'application/json',
@@ -77,7 +81,7 @@ async function* invokeStream(
         .filter((line: string) => line.trim().startsWith('data:')) || [];
     for (const line of lines) {
       const message = line.replace(/^data:/, '');
-      const token: string = JSON.parse(message).token.text || '';
+      const token: string = JSON.parse(message).token?.text || '';
       if (!token.includes(pt.eos_token)) yield token;
     }
     buffer = '';

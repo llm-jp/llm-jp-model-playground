@@ -5,13 +5,14 @@ import {
   PiList,
   PiSignOut,
   PiHouse,
-  PiChatCircleText,
-  PiPencil,
-  PiNote,
+  PiToggleLeft,
+  // PiChatCircleText,
+  // PiPencil,
+  // PiNote,
   PiChatsCircle,
-  PiPenNib,
-  PiMagnifyingGlass,
-  PiTranslate,
+  // PiPenNib,
+  // PiMagnifyingGlass,
+  // PiTranslate,
 } from 'react-icons/pi';
 import { Outlet } from 'react-router-dom';
 import Drawer, { ItemProps } from './components/Drawer';
@@ -23,7 +24,7 @@ import MenuItem from './components/MenuItem';
 import useDrawer from './hooks/useDrawer';
 import useConversation from './hooks/useConversation';
 
-const ragEnabled: boolean = import.meta.env.VITE_APP_RAG_ENABLED === 'true';
+// const ragEnabled: boolean = import.meta.env.VITE_APP_RAG_ENABLED === 'true';
 
 const items: ItemProps[] = [
   {
@@ -33,49 +34,55 @@ const items: ItemProps[] = [
     usecase: true,
   },
   {
+    label: 'Playground',
+    to: '/playground',
+    icon: <PiToggleLeft />,
+    usecase: true,
+  },
+  {
     label: 'チャット',
     to: '/chat',
     icon: <PiChatsCircle />,
     usecase: true,
   },
-  ragEnabled
-    ? {
-        label: 'RAG チャット',
-        to: '/rag',
-        icon: <PiChatCircleText />,
-        usecase: true,
-      }
-    : null,
-  {
-    label: '文章生成',
-    to: '/generate',
-    icon: <PiPencil />,
-    usecase: true,
-  },
-  {
-    label: '要約',
-    to: '/summarize',
-    icon: <PiNote />,
-    usecase: true,
-  },
-  {
-    label: '校正',
-    to: '/editorial',
-    icon: <PiPenNib />,
-    usecase: true,
-  },
-  {
-    label: '翻訳',
-    to: '/translate',
-    icon: <PiTranslate />,
-    usecase: true,
-  },
-  {
-    label: 'Kendra 検索',
-    to: '/kendra',
-    icon: <PiMagnifyingGlass />,
-    usecase: false,
-  },
+  // ragEnabled
+  //   ? {
+  //       label: 'RAG チャット',
+  //       to: '/rag',
+  //       icon: <PiChatCircleText />,
+  //       usecase: true,
+  //     }
+  //   : null,
+  // {
+  //   label: '文章生成',
+  //   to: '/generate',
+  //   icon: <PiPencil />,
+  //   usecase: true,
+  // },
+  // {
+  //   label: '要約',
+  //   to: '/summarize',
+  //   icon: <PiNote />,
+  //   usecase: true,
+  // },
+  // {
+  //   label: '校正',
+  //   to: '/editorial',
+  //   icon: <PiPenNib />,
+  //   usecase: true,
+  // },
+  // {
+  //   label: '翻訳',
+  //   to: '/translate',
+  //   icon: <PiTranslate />,
+  //   usecase: true,
+  // },
+  // {
+  //   label: 'Kendra 検索',
+  //   to: '/kendra',
+  //   icon: <PiMagnifyingGlass />,
+  //   usecase: false,
+  // },
 ].flatMap((i) => (i !== null ? [i] : []));
 
 // /chat/:chatId の形式から :chatId を返す

@@ -51,8 +51,18 @@ export type UpdateTitleResponse = {
   chat: Chat;
 };
 
+export type PredictParams = {
+  max_new_tokens?: number;
+  temperature?: number;
+  repetition_penalty?: number;
+  top_k?: number;
+  top_p?: number;
+  typical_p?: number;
+};
+
 export type PredictRequest = {
   messages: UnrecordedMessage[];
+  params?: PredictParams;
 };
 
 export type PredictResponse = string;
