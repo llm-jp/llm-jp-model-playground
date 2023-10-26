@@ -115,31 +115,36 @@ const PlaygroundPage: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
-  const getGeneratedText = async () => {
+  const getGeneratedText = async (
+    _system: string,
+    _messages: UnrecordedMessage[],
+    _maxNewTokens: number,
+    _temperature: number,
+    _repetitionPenalty: number,
+    _topP: number
+  ) => {
     setLoading(true);
-
-    console.log('system', system);
-
     const stream = predictStream({
-      messages: [{ role: 'system', content: system }, ...messages],
+      messages: [{ role: 'system', content: _system }, ..._messages],
       params: {
-        max_new_tokens: maxNewTokens,
-        temperature: temperature,
-        repetition_penalty: repetitionPenalty,
-        top_p: topP,
+        max_new_tokens: _maxNewTokens,
+        temperature: _temperature,
+        repetition_penalty: _repetitionPenalty,
+        top_p: _topP,
       },
     });
 
-    messages.push({ role: 'assistant', content: '' });
-    setMessages(messages);
+    _messages.push({ role: 'assistant', content: '' });
+    setMessages(_messages);
 
     // Assistant の発言を更新
     for await (const chunk of stream) {
-      messages[messages.length - 1].content += chunk.trim();
-      setMessages(messages);
+      _messages[_messages.length - 1].content += chunk.trim();
+      setMessages(_messages);
     }
 
-    messages.push({ role: 'user', content: '' });
+    _messages.push({ role: 'user', content: '' });
+    setMessages(_messages)
 
     setLoading(false);
   };
@@ -147,9 +152,9 @@ const PlaygroundPage: React.FC = () => {
   // 実行
   const onClickExec = useCallback(() => {
     if (loading) return;
-    getGeneratedText();
+    getGeneratedText(system, messages, maxNewTokens, temperature, repetitionPenalty, topP);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, system, messages]);
+  }, [loading, system, messages, maxNewTokens, temperature, repetitionPenalty, topP]);
 
   // メッセージの削除
   const onRemoveMessage = useCallback(
