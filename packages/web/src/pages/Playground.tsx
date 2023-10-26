@@ -144,7 +144,7 @@ const PlaygroundPage: React.FC = () => {
     }
 
     _messages.push({ role: 'user', content: '' });
-    setMessages(_messages)
+    setMessages(_messages);
 
     setLoading(false);
   };
@@ -152,9 +152,24 @@ const PlaygroundPage: React.FC = () => {
   // 実行
   const onClickExec = useCallback(() => {
     if (loading) return;
-    getGeneratedText(system, messages, maxNewTokens, temperature, repetitionPenalty, topP);
+    getGeneratedText(
+      system,
+      messages,
+      maxNewTokens,
+      temperature,
+      repetitionPenalty,
+      topP
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, system, messages, maxNewTokens, temperature, repetitionPenalty, topP]);
+  }, [
+    loading,
+    system,
+    messages,
+    maxNewTokens,
+    temperature,
+    repetitionPenalty,
+    topP,
+  ]);
 
   // メッセージの削除
   const onRemoveMessage = useCallback(
