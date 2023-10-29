@@ -21,10 +21,12 @@ const invoke = async (
   messages: UnrecordedMessage[],
   params: PredictParams = {}
 ): Promise<string> => {
+  let _input = generatePrompt(messages);
+  console.log(`Input prompt: ${_input}`)
   const command = new InvokeEndpointCommand({
     EndpointName: process.env.MODEL_NAME,
     Body: JSON.stringify({
-      inputs: generatePrompt(messages),
+      inputs: _input,
       parameters: { ...PARAMS, ...params },
     }),
     ContentType: 'application/json',
@@ -38,10 +40,12 @@ async function* invokeStream(
   messages: UnrecordedMessage[],
   params: PredictParams = {}
 ): AsyncIterable<string> {
+  let _input = generatePrompt(messages);
+  console.log(`Input prompt: ${_input}`)
   const command = new InvokeEndpointWithResponseStreamCommand({
     EndpointName: process.env.MODEL_NAME,
     Body: JSON.stringify({
-      inputs: generatePrompt(messages),
+      inputs: _input,
       parameters: { ...PARAMS, ...params },
       stream: true,
     }),

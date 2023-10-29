@@ -1,6 +1,6 @@
 {
     "prefix": "",
-    "suffix": "",
+    "suffix": "<NL>システム: ",
     "join": "<NL>",
     "user": "ユーザー: {}",
     "assistant": "システム: {}",
