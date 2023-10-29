@@ -8,21 +8,26 @@ import {
   RouteObject,
 } from 'react-router-dom';
 import LandingPage from './pages/LandingPage.tsx';
+import PlaygroundPage from './pages/Playground.tsx';
 import ChatPage from './pages/ChatPage.tsx';
-import SummarizePage from './pages/SummarizePage.tsx';
-import GenerateTextPage from './pages/GenerateTextPage.tsx';
-import EditorialPage from './pages/EditorialPage.tsx';
-import TranslatePage from './pages/TranslatePage.tsx';
+// import SummarizePage from './pages/SummarizePage.tsx';
+// import GenerateTextPage from './pages/GenerateTextPage.tsx';
+// import EditorialPage from './pages/EditorialPage.tsx';
+// import TranslatePage from './pages/TranslatePage.tsx';
 import NotFound from './pages/NotFound.tsx';
-import KendraSearchPage from './pages/KendraSearchPage.tsx';
-import RagPage from './pages/RagPage.tsx';
+// import KendraSearchPage from './pages/KendraSearchPage.tsx';
+// import RagPage from './pages/RagPage.tsx';
 
-const ragEnabled: boolean = import.meta.env.VITE_APP_RAG_ENABLED === 'true';
+// const ragEnabled: boolean = import.meta.env.VITE_APP_RAG_ENABLED === 'true';
 
 const routes: RouteObject[] = [
   {
     path: '/',
     element: <LandingPage />,
+  },
+  {
+    path: '/playground',
+    element: <PlaygroundPage />,
   },
   {
     path: '/chat',
@@ -32,34 +37,34 @@ const routes: RouteObject[] = [
     path: '/chat/:chatId',
     element: <ChatPage />,
   },
-  {
-    path: '/generate',
-    element: <GenerateTextPage />,
-  },
-  {
-    path: '/summarize',
-    element: <SummarizePage />,
-  },
-  {
-    path: '/editorial',
-    element: <EditorialPage />,
-  },
-  {
-    path: '/translate',
-    element: <TranslatePage />,
-  },
-  ragEnabled
-    ? {
-        path: '/rag',
-        element: <RagPage />,
-      }
-    : null,
-  ragEnabled
-    ? {
-        path: '/kendra',
-        element: <KendraSearchPage />,
-      }
-    : null,
+  // {
+  //   path: '/generate',
+  //   element: <GenerateTextPage />,
+  // },
+  // {
+  //   path: '/summarize',
+  //   element: <SummarizePage />,
+  // },
+  // {
+  //   path: '/editorial',
+  //   element: <EditorialPage />,
+  // },
+  // {
+  //   path: '/translate',
+  //   element: <TranslatePage />,
+  // },
+  // ragEnabled
+  //   ? {
+  //       path: '/rag',
+  //       element: <RagPage />,
+  //     }
+  //   : null,
+  // ragEnabled
+  //   ? {
+  //       path: '/kendra',
+  //       element: <KendraSearchPage />,
+  //     }
+  //   : null,
   {
     path: '*',
     element: <NotFound />,
