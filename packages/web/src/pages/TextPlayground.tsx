@@ -220,14 +220,14 @@ const TextPlaygroundPage: React.FC = () => {
                   label="Temperature"
                   value={temperature}
                   onChange={setTemperature}
-                  min={0}
+                  min={0.01}
                   max={2}
                   step={0.01}></SliderField>
                 <SliderField
                   label="Max New Tokens"
                   value={maxNewTokens}
                   onChange={setMaxNewTokens}
-                  min={0}
+                  min={1}
                   max={2048}
                   step={1}></SliderField>
                 <SliderField
@@ -244,7 +244,7 @@ const TextPlaygroundPage: React.FC = () => {
                   min={0.01}
                   max={0.99}
                   step={0.01}></SliderField>
-                <div>
+                {/* <div>
                   <Label htmlFor="seed">Seed</Label>
                   <Input
                     id="seed"
@@ -252,7 +252,7 @@ const TextPlaygroundPage: React.FC = () => {
                     value={seed}
                     onChange={(e) => setSeed(parseInt(e.target.value))}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
