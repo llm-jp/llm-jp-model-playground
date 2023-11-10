@@ -52,16 +52,16 @@ export type UpdateTitleResponse = {
 };
 
 export type PredictParams = {
+  variant?: string;
   max_new_tokens?: number;
   temperature?: number;
   repetition_penalty?: number;
-  top_k?: number;
   top_p?: number;
-  typical_p?: number;
+  seed?: number;
 };
 
 export type PredictRequest = {
-  messages: UnrecordedMessage[];
+  inputs: string;
   params?: PredictParams;
 };
 
@@ -69,7 +69,7 @@ export type PredictResponse = string;
 
 export type PredictTitleRequest = {
   chat: Chat;
-  messages: UnrecordedMessage[];
+  inputs: string;
 };
 
 export type PredictTitleResponse = string;
@@ -85,3 +85,20 @@ export type RetrieveKendraRequest = {
 };
 
 export type RetrieveKendraResponse = RetrieveCommandOutput;
+
+export type CreateEndpointResponse = {
+  Message: string;
+};
+
+export type EndpointStatusResponse = {
+  EndpointStatus:
+    | 'OutOfService'
+    | 'Creating'
+    | 'Updating'
+    | 'SystemUpdating'
+    | 'RollingBack'
+    | 'InService'
+    | 'Deleting'
+    | 'Failed'
+    | 'UpdateRollbackFailed';
+};

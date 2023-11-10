@@ -1,10 +1,9 @@
-import { PredictParams, UnrecordedMessage } from 'generative-ai-use-cases-jp';
+import { PredictParams } from 'generative-ai-use-cases-jp';
 import {
   BedrockRuntimeClient,
   InvokeModelCommand,
   InvokeModelWithResponseStreamCommand,
 } from '@aws-sdk/client-bedrock-runtime';
-import { generatePrompt } from './prompter';
 
 const client = new BedrockRuntimeClient({
   region: process.env.MODEL_REGION,
@@ -18,13 +17,13 @@ const PARAMS = {
 };
 
 const invoke = async (
-  messages: UnrecordedMessage[],
+  inputs: string,
   params: PredictParams = {}
 ): Promise<string> => {
   const command = new InvokeModelCommand({
     modelId: process.env.MODEL_NAME,
     body: JSON.stringify({
-      prompt: generatePrompt(messages),
+      prompt: inputs, // generatePrompt(messages),
       ...{ ...PARAMS, params },
     }),
     contentType: 'application/json',
@@ -34,13 +33,13 @@ const invoke = async (
 };
 
 async function* invokeStream(
-  messages: UnrecordedMessage[],
+  inputs: string,
   params: PredictParams = {}
 ): AsyncIterable<string> {
   const command = new InvokeModelWithResponseStreamCommand({
     modelId: process.env.MODEL_NAME,
     body: JSON.stringify({
-      prompt: generatePrompt(messages),
+      prompt: inputs, //generatePrompt(messages),
       ...{ ...PARAMS, params },
     }),
     contentType: 'application/json',

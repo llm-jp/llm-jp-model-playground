@@ -34,8 +34,14 @@ const items: ItemProps[] = [
     usecase: true,
   },
   {
-    label: 'Playground',
-    to: '/playground',
+    label: 'Playground (Text)',
+    to: '/playground-text',
+    icon: <PiToggleLeft />,
+    usecase: true,
+  },
+  {
+    label: 'Playground (Chat)',
+    to: '/playground-chat',
     icon: <PiToggleLeft />,
     usecase: true,
   },

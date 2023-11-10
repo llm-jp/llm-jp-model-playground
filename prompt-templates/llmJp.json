@@ -1,9 +1,0 @@
-{
-    "prefix": "",
-    "suffix": "",
-    "join": "\n",
-    "user": "{}",
-    "assistant": "### 回答：{}",
-    "system": "### 回答：{}",
-    "eos_token": "<EOD|LLM-jp>"
-}

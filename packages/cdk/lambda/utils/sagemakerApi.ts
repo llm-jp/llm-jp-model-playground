@@ -1,10 +1,9 @@
-import { PredictParams, UnrecordedMessage } from 'generative-ai-use-cases-jp';
+import { PredictParams } from 'generative-ai-use-cases-jp';
 import {
   SageMakerRuntimeClient,
   InvokeEndpointCommand,
   InvokeEndpointWithResponseStreamCommand,
 } from '@aws-sdk/client-sagemaker-runtime';
-import { generatePrompt, pt } from './prompter';
 
 const client = new SageMakerRuntimeClient({
   region: process.env.MODEL_REGION,
@@ -18,15 +17,17 @@ const PARAMS = {
 };
 
 const invoke = async (
-  messages: UnrecordedMessage[],
+  inputs: string,
   params: PredictParams = {}
 ): Promise<string> => {
-  let _input = generatePrompt(messages);
-  console.log(`Input prompt: ${_input}`)
+  const variant = params.variant;
+  delete params['variant'];
+  console.log(inputs, params);
   const command = new InvokeEndpointCommand({
     EndpointName: process.env.MODEL_NAME,
+    TargetVariant: variant,
     Body: JSON.stringify({
-      inputs: _input,
+      inputs: inputs,
       parameters: { ...PARAMS, ...params },
     }),
     ContentType: 'application/json',
@@ -37,17 +38,19 @@ const invoke = async (
 };
 
 async function* invokeStream(
-  messages: UnrecordedMessage[],
+  inputs: string,
   params: PredictParams = {}
 ): AsyncIterable<string> {
-  let _input = generatePrompt(messages);
-  console.log(`Input prompt: ${_input}`)
+  const variant = params.variant;
+  delete params['variant'];
+  console.log(inputs, params);
   const command = new InvokeEndpointWithResponseStreamCommand({
     EndpointName: process.env.MODEL_NAME,
+    TargetVariant: variant,
     Body: JSON.stringify({
-      inputs: _input,
+      inputs: inputs,
       parameters: { ...PARAMS, ...params },
-      stream: true,
+      // stream: true,
     }),
     ContentType: 'application/json',
     Accept: 'application/json',
@@ -80,13 +83,15 @@ async function* invokeStream(
 
     // When buffer end with \n it can be parsed
     const lines: string[] =
-      buffer
-        .split('\n')
-        .filter((line: string) => line.trim().startsWith('data:')) || [];
+      buffer.split('\n').filter(
+        (line: string) => line.trim() //.startsWith('data:')
+      ) || [];
     for (const line of lines) {
-      const message = line.replace(/^data:/, '');
-      const token: string = JSON.parse(message).token?.text || '';
-      if (!token.includes(pt.eos_token)) yield token;
+      // const message = line.replace(/^data:/, '');
+      // const token: string = JSON.parse(message).token?.text || '';
+      const token: string = JSON.parse(line).outputs[0] || '';
+      // if (!token.includes(pt.eos_token))
+      yield token;
     }
     buffer = '';
   }

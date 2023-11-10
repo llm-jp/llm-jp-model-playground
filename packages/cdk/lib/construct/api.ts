@@ -14,12 +14,14 @@ import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import { Table } from 'aws-cdk-lib/aws-dynamodb';
 import { IdentityPool } from '@aws-cdk/aws-cognito-identitypool-alpha';
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
-import { readFileSync } from 'fs';
+// import { readFileSync } from 'fs';
 
 export interface BackendApiProps {
   userPool: UserPool;
   idPool: IdentityPool;
   table: Table;
+  endpointName: string;
+  endpointConfigName: string;
 }
 
 export class Api extends Construct {
@@ -29,22 +31,22 @@ export class Api extends Construct {
   constructor(scope: Construct, id: string, props: BackendApiProps) {
     super(scope, id);
 
-    const { userPool, table, idPool } = props;
+    const { userPool, table, idPool, endpointName, endpointConfigName } = props;
 
     // sagemaker | bedrock
-    const modelType = this.node.tryGetContext('modelType') || 'bedrock';
+    const modelType = this.node.tryGetContext('modelType') || 'sagemaker';
     // region for bedrock / sagemaker
-    const modelRegion = this.node.tryGetContext('modelRegion') || 'us-east-1';
+    const modelRegion =
+      this.node.tryGetContext('modelRegion') || Stack.of(this).region;
     // model name for bedrock / sagemaker
-    const modelName =
-      this.node.tryGetContext('modelName') || 'anthropic.claude-v2';
+    const modelName = endpointName || 'anthropic.claude-v2';
     // prompt template
-    const promptTemplateFile =
-      this.node.tryGetContext('promptTemplate') || 'claude.json';
-    const promptTemplate = readFileSync(
-      '../../prompt-templates/' + promptTemplateFile,
-      'utf-8'
-    );
+    // const promptTemplateFile =
+    //   this.node.tryGetContext('promptTemplate') || 'claude.json';
+    // const promptTemplate = readFileSync(
+    //   '../../prompt-templates/' + promptTemplateFile,
+    //   'utf-8'
+    // );
 
     // Lambda
     const predictFunction = new NodejsFunction(this, 'Predict', {
@@ -55,7 +57,7 @@ export class Api extends Construct {
         MODEL_TYPE: modelType,
         MODEL_REGION: modelRegion,
         MODEL_NAME: modelName,
-        PROMPT_TEMPLATE: promptTemplate,
+        // PROMPT_TEMPLATE: promptTemplate,
       },
       bundling: {
         nodeModules: ['@aws-sdk/client-bedrock-runtime'],
@@ -70,7 +72,7 @@ export class Api extends Construct {
         MODEL_TYPE: modelType,
         MODEL_REGION: modelRegion,
         MODEL_NAME: modelName,
-        PROMPT_TEMPLATE: promptTemplate,
+        // PROMPT_TEMPLATE: promptTemplate,
       },
       bundling: {
         nodeModules: [
@@ -89,32 +91,66 @@ export class Api extends Construct {
       entry: './lambda/predictTitle.ts',
       timeout: Duration.minutes(15),
       bundling: {
-        nodeModules: ['@aws-sdk/client-bedrock-runtime'],
+        nodeModules: [
+          '@aws-sdk/client-bedrock-runtime',
+          // デフォルトの client-sagemaker-runtime のバージョンは StreamingResponse に
+          // 対応していないため package.json に記載のバージョンを Bundle する
+          '@aws-sdk/client-sagemaker-runtime',
+        ],
       },
       environment: {
         TABLE_NAME: table.tableName,
         MODEL_TYPE: modelType,
         MODEL_REGION: modelRegion,
         MODEL_NAME: modelName,
-        PROMPT_TEMPLATE: promptTemplate,
+        // PROMPT_TEMPLATE: promptTemplate,
       },
     });
     table.grantWriteData(predictTitleFunction);
+
+    const createEndpointFunction = new NodejsFunction(this, 'createEndpoint', {
+      runtime: Runtime.NODEJS_18_X,
+      entry: './lambda/createEndpoint.ts',
+      timeout: Duration.minutes(15),
+      environment: {
+        ENDPOINT_NAME: endpointName,
+        ENDPOINT_CONFIG_NAME: endpointConfigName,
+      },
+    });
+
+    const checkEndpointFunction = new NodejsFunction(this, 'checkEndpoint', {
+      runtime: Runtime.NODEJS_18_X,
+      entry: './lambda/checkEndpoint.ts',
+      timeout: Duration.minutes(15),
+      environment: {
+        ENDPOINT_NAME: endpointName,
+      },
+    });
 
     if (modelType == 'sagemaker') {
       // SageMaker Policy
       const sagemakerPolicy = new PolicyStatement({
         effect: Effect.ALLOW,
-        actions: ['sagemaker:DescribeEndpoint', 'sagemaker:InvokeEndpoint'],
+        actions: [
+          'sagemaker:CreateEndpoint',
+          'sagemaker:DeleteEndpoint',
+          'sagemaker:DescribeEndpoint',
+          'sagemaker:InvokeEndpoint',
+        ],
         resources: [
           `arn:aws:sagemaker:${modelRegion}:${
             Stack.of(this).account
-          }:endpoint/${modelName}`,
+          }:endpoint/${endpointName}`,
+          `arn:aws:sagemaker:${modelRegion}:${
+            Stack.of(this).account
+          }:endpoint-config/${endpointConfigName}`,
         ],
       });
       predictFunction.role?.addToPrincipalPolicy(sagemakerPolicy);
       predictStreamFunction.role?.addToPrincipalPolicy(sagemakerPolicy);
       predictTitleFunction.role?.addToPrincipalPolicy(sagemakerPolicy);
+      createEndpointFunction.role?.addToPrincipalPolicy(sagemakerPolicy);
+      checkEndpointFunction.role?.addToPrincipalPolicy(sagemakerPolicy);
     } else {
       // Bedrock Policy
       const bedrockPolicy = new PolicyStatement({
@@ -260,6 +296,29 @@ export class Api extends Construct {
     predictTitleResource.addMethod(
       'POST',
       new LambdaIntegration(predictTitleFunction),
+      commonAuthorizerProps
+    );
+
+    const endpointResource = api.root.addResource('endpoint');
+
+    // GET: /endpoint
+    endpointResource.addMethod(
+      'GET',
+      new LambdaIntegration(checkEndpointFunction),
+      commonAuthorizerProps
+    );
+
+    // POST: /endpoint
+    endpointResource.addMethod(
+      'POST',
+      new LambdaIntegration(createEndpointFunction),
+      commonAuthorizerProps
+    );
+
+    // DELETE: /endpoint
+    endpointResource.addMethod(
+      'DELETE',
+      new LambdaIntegration(createEndpointFunction),
       commonAuthorizerProps
     );
 

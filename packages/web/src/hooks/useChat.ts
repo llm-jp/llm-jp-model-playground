@@ -15,6 +15,7 @@ import useChatApi from './useChatApi';
 import useConversation from './useConversation';
 import { KeyedMutator } from 'swr';
 import { getSystemContextById } from '../prompts';
+import useModel from './useModel';
 
 const useChatState = create<{
   chats: {
@@ -37,7 +38,8 @@ const useChatState = create<{
     id: string,
     content: string,
     mutateListChat: KeyedMutator<ListChatsResponse>,
-    ignoreHistory: boolean
+    ignoreHistory: boolean,
+    variant: string
   ) => void;
   sendFeedback: (
     id: string,
@@ -52,6 +54,7 @@ const useChatState = create<{
     predictStream,
     predictTitle,
   } = useChatApi();
+  const { generatePrompt, processOutput } = useModel();
 
   const setLoading = (id: string, newLoading: boolean) => {
     set((state) => {
@@ -94,10 +97,19 @@ const useChatState = create<{
     });
   };
 
-  const setPredictedTitle = async (id: string) => {
+  const setPredictedTitle = async (id: string, variant: string) => {
     const title = await predictTitle({
       chat: get().chats[id].chat!,
-      messages: omitUnusedMessageProperties(get().chats[id].messages),
+      inputs: generatePrompt(
+        [
+          ...omitUnusedMessageProperties(get().chats[id].messages),
+          {
+            role: 'user',
+            content: '上記の内容から30文字以内でタイトルを作成してください。',
+          },
+        ],
+        variant
+      ),
     });
     setTitle(id, title);
   };
@@ -244,7 +256,8 @@ const useChatState = create<{
       id: string,
       content: string,
       mutateListChat,
-      ignoreHistory: boolean = false
+      ignoreHistory: boolean = false,
+      variant: string = ''
     ) => {
       setLoading(id, true);
 
@@ -271,14 +284,18 @@ const useChatState = create<{
       });
 
       const chatMessages = get().chats[id].messages;
+      const requestMessages = omitUnusedMessageProperties(
+        ignoreHistory
+          ? [chatMessages[0], ...chatMessages.slice(-2, -1)]
+          : chatMessages.slice(0, -1)
+      );
       const stream = predictStream({
         // 最後のメッセージはアシスタントのメッセージなので、排除
         // ignoreHistory が設定されている場合は最後の会話だけ反映（コスト削減）
-        messages: omitUnusedMessageProperties(
-          ignoreHistory
-            ? [chatMessages[0], ...chatMessages.slice(-2, -1)]
-            : chatMessages.slice(0, -1)
-        ),
+        inputs: generatePrompt(requestMessages, variant),
+        params: {
+          variant: variant,
+        },
       });
 
       // Assistant の発言を更新
@@ -288,9 +305,12 @@ const useChatState = create<{
             const oldAssistantMessage = draft[id].messages.pop()!;
             const newAssistantMessage: UnrecordedMessage = {
               role: 'assistant',
-              content: (oldAssistantMessage.content + chunk)
-                .replace(/(<output>|<\/output>)/g, '')
-                .trim(),
+              content: processOutput(
+                (oldAssistantMessage.content + chunk)
+                  .replace(/(<output>|<\/output>)/g, '')
+                  .trim(),
+                variant
+              ),
             };
 
             draft[id].messages.push(newAssistantMessage);
@@ -308,7 +328,7 @@ const useChatState = create<{
 
       // タイトルが空文字列だった場合、タイトルを予測して設定
       if (get().chats[id].chat?.title === '') {
-        setPredictedTitle(id).then(() => {
+        setPredictedTitle(id, variant).then(() => {
           mutateListChat();
         });
       }
@@ -400,8 +420,12 @@ const useChat = (id: string, chatId?: string) => {
     popMessage,
     messages: filteredMessages,
     isEmpty: filteredMessages.length === 0,
-    postChat: (content: string, ignoreHistory: boolean = false) => {
-      post(id, content, mutateConversations, ignoreHistory);
+    postChat: (
+      content: string,
+      ignoreHistory: boolean = false,
+      variant: string = ''
+    ) => {
+      post(id, content, mutateConversations, ignoreHistory, variant);
     },
     sendFeedback: async (createdDate: string, feedback: string) => {
       await sendFeedback(id, createdDate, feedback);
