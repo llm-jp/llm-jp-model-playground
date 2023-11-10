@@ -4,7 +4,7 @@ import Card from '../components/Card';
 import Button from '../components/Button';
 import Textarea from '../components/Textarea';
 import useChatApi from '../hooks/useChatApi';
-import { Input, Label, SelectField, SliderField } from '@aws-amplify/ui-react';
+import { SelectField, SliderField } from '@aws-amplify/ui-react';
 import { create } from 'zustand';
 import useModels from '../hooks/useModel';
 
@@ -23,8 +23,6 @@ type StateType = {
   setRepetitionPenalty: (s: number) => void;
   topP: number;
   setTopP: (s: number) => void;
-  seed: number;
-  setSeed: (s: number) => void;
   clear: () => void;
 };
 
@@ -38,7 +36,6 @@ const usePlaygroundPageState = create<StateType>((set) => {
     temperature: 0.7,
     repetitionPenalty: 1.05,
     topP: 0.99,
-    seed: 0,
   };
   return {
     ...INIT_STATE,
@@ -77,11 +74,6 @@ const usePlaygroundPageState = create<StateType>((set) => {
         topP: s,
       }));
     },
-    setSeed: (s: number) => {
-      set(() => ({
-        seed: s,
-      }));
-    },
     clear: () => {
       set(INIT_STATE);
     },
@@ -104,8 +96,6 @@ const TextPlaygroundPage: React.FC = () => {
     setRepetitionPenalty,
     topP,
     setTopP,
-    seed,
-    setSeed,
     clear,
   } = usePlaygroundPageState();
   const { state } = useLocation();
@@ -130,7 +120,6 @@ const TextPlaygroundPage: React.FC = () => {
     _temperature: number,
     _repetitionPenalty: number,
     _topP: number,
-    _seed: number,
     _variant: string
   ) => {
     setLoading(true);
@@ -141,7 +130,6 @@ const TextPlaygroundPage: React.FC = () => {
         temperature: _temperature,
         repetition_penalty: _repetitionPenalty,
         top_p: _topP,
-        seed: _seed,
         variant: _variant,
       },
     });
@@ -164,7 +152,6 @@ const TextPlaygroundPage: React.FC = () => {
       temperature,
       repetitionPenalty,
       topP,
-      seed,
       variant
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -175,7 +162,6 @@ const TextPlaygroundPage: React.FC = () => {
     temperature,
     repetitionPenalty,
     topP,
-    seed,
     variant,
   ]);
 
@@ -244,15 +230,6 @@ const TextPlaygroundPage: React.FC = () => {
                   min={0.01}
                   max={0.99}
                   step={0.01}></SliderField>
-                {/* <div>
-                  <Label htmlFor="seed">Seed</Label>
-                  <Input
-                    id="seed"
-                    type="number"
-                    value={seed}
-                    onChange={(e) => setSeed(parseInt(e.target.value))}
-                  />
-                </div> */}
               </div>
             </div>
           </div>

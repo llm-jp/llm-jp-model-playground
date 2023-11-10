@@ -6,7 +6,7 @@ import Textarea from '../components/Textarea';
 import ButtonIcon from '../components/ButtonIcon';
 import RowItem from '../components/RowItem';
 import useChatApi from '../hooks/useChatApi';
-import { Input, Label, SelectField, SliderField } from '@aws-amplify/ui-react';
+import { SelectField, SliderField } from '@aws-amplify/ui-react';
 import { create } from 'zustand';
 import { UnrecordedMessage } from 'generative-ai-use-cases-jp';
 import { PiMinusCircle, PiPlusCircle } from 'react-icons/pi';
@@ -29,8 +29,6 @@ type StateType = {
   setRepetitionPenalty: (s: number) => void;
   topP: number;
   setTopP: (s: number) => void;
-  seed: number;
-  setSeed: (s: number) => void;
   clear: () => void;
 };
 
@@ -46,7 +44,6 @@ const usePlaygroundPageState = create<StateType>((set) => {
     temperature: 0.7,
     repetitionPenalty: 1.05,
     topP: 0.99,
-    seed: 0,
   };
   return {
     ...INIT_STATE,
@@ -90,11 +87,6 @@ const usePlaygroundPageState = create<StateType>((set) => {
         topP: s,
       }));
     },
-    setSeed: (s: number) => {
-      set(() => ({
-        seed: s,
-      }));
-    },
     clear: () => {
       set(INIT_STATE);
     },
@@ -119,8 +111,6 @@ const ChatPlaygroundPage: React.FC = () => {
     setRepetitionPenalty,
     topP,
     setTopP,
-    seed,
-    setSeed,
     clear,
   } = usePlaygroundPageState();
   const { state } = useLocation();
@@ -147,7 +137,6 @@ const ChatPlaygroundPage: React.FC = () => {
     _temperature: number,
     _repetitionPenalty: number,
     _topP: number,
-    _seed: number,
     _variant: string
   ) => {
     setLoading(true);
@@ -161,7 +150,6 @@ const ChatPlaygroundPage: React.FC = () => {
         temperature: _temperature,
         repetition_penalty: _repetitionPenalty,
         top_p: _topP,
-        seed: _seed,
         variant: _variant,
       },
     });
@@ -194,7 +182,6 @@ const ChatPlaygroundPage: React.FC = () => {
       temperature,
       repetitionPenalty,
       topP,
-      seed,
       variant
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -206,7 +193,6 @@ const ChatPlaygroundPage: React.FC = () => {
     temperature,
     repetitionPenalty,
     topP,
-    seed,
     variant,
   ]);
 
@@ -333,15 +319,6 @@ const ChatPlaygroundPage: React.FC = () => {
                   min={0.01}
                   max={0.99}
                   step={0.01}></SliderField>
-                {/* <div>
-                  <Label htmlFor="seed">Seed</Label>
-                  <Input
-                    id="seed"
-                    type="number"
-                    value={seed}
-                    onChange={(e) => setSeed(parseInt(e.target.value))}
-                  />
-                </div> */}
               </div>
             </div>
           </div>
