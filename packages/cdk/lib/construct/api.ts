@@ -14,6 +14,10 @@ import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import { Table } from 'aws-cdk-lib/aws-dynamodb';
 import { IdentityPool } from '@aws-cdk/aws-cognito-identitypool-alpha';
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch';
+import * as cwactions from 'aws-cdk-lib/aws-cloudwatch-actions';
+import * as sns from 'aws-cdk-lib/aws-sns';
+import * as subscriptions from 'aws-cdk-lib/aws-sns-subscriptions';
 // import { readFileSync } from 'fs';
 
 export interface BackendApiProps {
@@ -118,6 +122,16 @@ export class Api extends Construct {
       },
     });
 
+    // Create Lambda to delete
+    const deleteEndpointFunction = new NodejsFunction(this, 'DeleteEndpoint', {
+      runtime: Runtime.NODEJS_18_X,
+      entry: './lambda/deleteEndpoint.ts',
+      timeout: Duration.minutes(15),
+      environment: {
+        ENDPOINT_NAME: endpointName,
+      },
+    });
+
     const checkEndpointFunction = new NodejsFunction(this, 'checkEndpoint', {
       runtime: Runtime.NODEJS_18_X,
       entry: './lambda/checkEndpoint.ts',
@@ -150,6 +164,7 @@ export class Api extends Construct {
       predictStreamFunction.role?.addToPrincipalPolicy(sagemakerPolicy);
       predictTitleFunction.role?.addToPrincipalPolicy(sagemakerPolicy);
       createEndpointFunction.role?.addToPrincipalPolicy(sagemakerPolicy);
+      deleteEndpointFunction.role?.addToPrincipalPolicy(sagemakerPolicy);
       checkEndpointFunction.role?.addToPrincipalPolicy(sagemakerPolicy);
     } else {
       // Bedrock Policy
@@ -387,6 +402,21 @@ export class Api extends Construct {
       new LambdaIntegration(updateFeedbackFunction),
       commonAuthorizerProps
     );
+
+    // Invocation Monitoring:
+    // Delete SageMaker Endpoint if no request for one hours
+    const endpointAlarm = new cloudwatch.Alarm(this, 'NoTrafficAlarm', {
+      metric: predictStreamFunction.metricInvocations(),
+      comparisonOperator: cloudwatch.ComparisonOperator.LESS_THAN_THRESHOLD,
+      evaluationPeriods: 12,
+      threshold: 1,
+      treatMissingData: cloudwatch.TreatMissingData.BREACHING,
+    });
+    const topic = new sns.Topic(this, 'DeleteEndpointTopic');
+    topic.addSubscription(
+      new subscriptions.LambdaSubscription(deleteEndpointFunction)
+    );
+    endpointAlarm.addAlarmAction(new cwactions.SnsAction(topic));
 
     this.api = api;
     this.predictStreamFunction = predictStreamFunction;

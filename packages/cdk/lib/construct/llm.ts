@@ -70,15 +70,5 @@ export class LLM extends Construct {
     sm_models.forEach((sm_model) =>
       endpointConfig.node.addDependency(sm_model)
     );
-
-    // Create Endpoint from Lambda
-
-    // Create Endpoint
-    // const endpoint = new sagemaker.Endpoint(this, "Endpoint", {
-    //   endpointConfig: endpointConfig
-    // });
-    // endpoint.node.addDependency(endpointConfig)
-
-    // this.endpoint = endpoint;
   }
 }
