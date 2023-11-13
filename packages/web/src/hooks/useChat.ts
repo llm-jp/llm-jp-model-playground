@@ -54,7 +54,7 @@ const useChatState = create<{
     predictStream,
     predictTitle,
   } = useChatApi();
-  const { generatePrompt, processOutput } = useModel();
+  const { generatePrompt, processOutput, getPromptTemplate } = useModel();
 
   const setLoading = (id: string, newLoading: boolean) => {
     set((state) => {
@@ -110,6 +110,7 @@ const useChatState = create<{
         ],
         variant
       ),
+      eos_token: getPromptTemplate(variant).eos_token,
     });
     setTitle(id, title);
   };

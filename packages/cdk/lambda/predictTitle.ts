@@ -19,7 +19,7 @@ export const handler = async (
 
     let title = '';
     for await (const token of api.invokeStream(req.inputs)) {
-      title += token.replace('<pad|LLM-jp>', '').trim();
+      title += token.replace(req.eos_token, '').trim();
     }
 
     await setChatTitle(req.chat.id, req.chat.createdDate, title);

@@ -27,6 +27,7 @@ export class LLM extends Construct {
     super(scope, id);
 
     // Get Container Image
+    // https://github.com/aws/deep-learning-containers/blob/master/available_images.md
     const repositoryName = 'djl-inference';
     const tag = '0.24.0-deepspeed0.10.0-cu118';
     const image = sagemaker.ContainerImage.fromDlc(repositoryName, tag);

@@ -70,6 +70,7 @@ export type PredictResponse = string;
 export type PredictTitleRequest = {
   chat: Chat;
   inputs: string;
+  eos_token: string;
 };
 
 export type PredictTitleResponse = string;

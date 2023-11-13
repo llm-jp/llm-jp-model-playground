@@ -15,7 +15,7 @@
 
 ## アーキテクチャ
 
-このサンプルでは、フロントエンドは React を用いて実装し、静的ファイルは Amazon CloudFront + Amazon S3 によって配信されています。バックエンドには Amazon API Gateway + AWS Lambda、認証には Amazon Congito を使用しています。また、LLM は Amazon SageMaker を使用します。
+このサンプルでは、フロントエンドは React を用いて実装し、静的ファイルは Amazon CloudFront + Amazon S3 によって配信されています。バックエンドには Amazon API Gateway + AWS Lambda、認証には Amazon Congito 、チャット履歴等の保存には Amazon DynamoDB を使用しています。また、LLM は Amazon SageMaker を使用します。
 
 ![arch.png](/imgs/arch.png)
 
