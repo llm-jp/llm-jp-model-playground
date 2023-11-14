@@ -4,6 +4,9 @@ import {
   InvokeEndpointCommand,
   InvokeEndpointWithResponseStreamCommand,
 } from '@aws-sdk/client-sagemaker-runtime';
+import { Logger } from '@aws-lambda-powertools/logger';
+
+const logger = new Logger();
 
 const client = new SageMakerRuntimeClient({
   region: process.env.MODEL_REGION,
@@ -22,7 +25,7 @@ const invoke = async (
 ): Promise<string> => {
   const variant = params.variant;
   delete params['variant'];
-  console.log(inputs, params);
+  logger.debug(inputs, params);
   const command = new InvokeEndpointCommand({
     EndpointName: process.env.MODEL_NAME,
     TargetVariant: variant,
@@ -43,7 +46,7 @@ async function* invokeStream(
 ): AsyncIterable<string> {
   const variant = params.variant;
   delete params['variant'];
-  console.log(inputs, params);
+  logger.debug(inputs, params);
   const command = new InvokeEndpointWithResponseStreamCommand({
     EndpointName: process.env.MODEL_NAME,
     TargetVariant: variant,

@@ -9,7 +9,7 @@
 > :white_check_mark: ... 実装されている、:construction: ... まだ実装されていない
 
 - :white_check_mark: Amazon SageMaker で LLM をデプロイ
-- :white_check_mark: Fine-tuning 用のデータ収集
+- :construction: Fine-tuning 用のデータ収集
 - :construction: Fine-tuning 用データのラベリング
 - :construction: Fine-tuning の実行
 

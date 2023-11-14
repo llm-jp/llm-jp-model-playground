@@ -1,5 +1,8 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { SageMaker } from '@aws-sdk/client-sagemaker';
+import { Logger } from '@aws-lambda-powertools/logger';
+
+const logger = new Logger();
 
 const sagemaker = new SageMaker();
 const endpointConfigName = process.env.ENDPOINT_CONFIG_NAME;
@@ -18,7 +21,7 @@ exports.handler = async (
         EndpointConfigName: endpointConfigName,
       });
 
-      console.log(
+      logger.info(
         `SageMaker endpoint created: ${createEndpointResponse.EndpointArn}`
       );
       return createResponse(200, {
@@ -28,7 +31,7 @@ exports.handler = async (
     } else if (requestType === 'DELETE') {
       // Delete the SageMaker endpoint
       await sagemaker.deleteEndpoint({ EndpointName: endpointName });
-      console.log(`SageMaker endpoint deleted: ${endpointName}`);
+      logger.info(`SageMaker endpoint deleted: ${endpointName}`);
       return createResponse(200, {
         Message: 'SageMaker endpoint deleted',
       });

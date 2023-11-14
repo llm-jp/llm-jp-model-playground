@@ -1,6 +1,9 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { UpdateFeedbackRequest } from 'generative-ai-use-cases-jp';
 import { updateFeedback } from './repository';
+import { Logger } from '@aws-lambda-powertools/logger';
+
+const logger = new Logger();
 
 export const handler = async (
   event: APIGatewayProxyEvent
@@ -19,8 +22,8 @@ export const handler = async (
       },
       body: JSON.stringify({ message }),
     };
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    logger.error(error);
     return {
       statusCode: 500,
       headers: {

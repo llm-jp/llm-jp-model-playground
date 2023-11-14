@@ -107,7 +107,7 @@ const LandingPage: React.FC = () => {
       </div>
 
       <div className="mx-20 grid gap-x-20 gap-y-10 md:grid-cols-1 xl:grid-cols-2">
-        <CardDemo label="Playground (Text)" onClickDemo={demoTextPlayground}>
+        <CardDemo label="Playground (Chat)" onClickDemo={demoChatPlayground}>
           <div className="flex flex-row items-start">
             <div className="mr-4 text-7xl">
               <PiToggleLeft />
@@ -118,7 +118,7 @@ const LandingPage: React.FC = () => {
             </div>
           </div>
         </CardDemo>
-        <CardDemo label="Playground (Chat)" onClickDemo={demoChatPlayground}>
+        <CardDemo label="Playground (Text)" onClickDemo={demoTextPlayground}>
           <div className="flex flex-row items-start">
             <div className="mr-4 text-7xl">
               <PiToggleLeft />

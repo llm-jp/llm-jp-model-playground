@@ -2,7 +2,7 @@
 
 Amazon SageMaker エンドポイントにデプロイされた大規模言語モデルを利用することが可能です。
 
-DJL を使用した SageMaker Endpoint に対応しています。
+Deep Java Library (DJL) を使用した SageMaker Endpoint に対応しています。
 
 モデルはユーザーとアシスタントが交互に発言するチャット形式のプロンプトをサポートしているのが理想的です。
 
