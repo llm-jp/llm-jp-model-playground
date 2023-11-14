@@ -20,3 +20,6 @@ export VITE_APP_USER_POOL_CLIENT_ID=`stack_output 'UserPoolClientId'`
 export VITE_APP_IDENTITY_POOL_ID=`stack_output 'IdPoolId'`
 export VITE_APP_PREDICT_STREAM_FUNCTION_ARN=`stack_output PredictStreamFunctionArn`
 export VITE_APP_RAG_ENABLED=`stack_output RagEnabled`
+export VITE_APP_SAGEMAKER_ENDPOINT_NAME=`stack_output SageMakerEndpointName`
+export VITE_APP_SAGEMAKER_ENDPOINT_CONFIG_NAME=`stack_output SageMakerEndpointConfigName`
+export VITE_APP_SAGEMAKER_MODELS=`stack_output SageMakerModels`

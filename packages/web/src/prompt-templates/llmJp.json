@@ -1,0 +1,9 @@
+{
+    "prefix": "",
+    "suffix": "\n### 回答：",
+    "join": "\n",
+    "user": "### 質問：{}",
+    "assistant": "### 回答：{}",
+    "system": "### 指示：{}",
+    "eos_token": "<pad|LLM-jp>"
+}

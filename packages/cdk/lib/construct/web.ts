@@ -12,6 +12,9 @@ export interface WebProps {
   idPoolId: string;
   predictStreamFunctionArn: string;
   ragEnabled: boolean;
+  endpointName: string;
+  endpointConfigName: string;
+  models: string;
 }
 
 export class Web extends Construct {
@@ -76,6 +79,9 @@ export class Web extends Construct {
         VITE_APP_IDENTITY_POOL_ID: props.idPoolId,
         VITE_APP_PREDICT_STREAM_FUNCTION_ARN: props.predictStreamFunctionArn,
         VITE_APP_RAG_ENABLED: props.ragEnabled.toString(),
+        VITE_APP_SAGEMAKER_ENDPOINT_NAME: props.endpointName,
+        VITE_APP_SAGEMAKER_ENDPOINT_CONFIG_NAME: props.endpointConfigName,
+        VITE_APP_SAGEMAKER_MODELS: props.models,
       },
     });
 

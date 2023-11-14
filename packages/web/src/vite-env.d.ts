@@ -8,6 +8,9 @@ interface ImportMetaEnv {
   readonly VITE_APP_IDENTITY_POOL_ID: string;
   readonly VITE_APP_PREDICT_STREAM_FUNCTION_ARN: string;
   readonly VITE_APP_RAG_ENABLED: string;
+  readonly VITE_APP_SAGEMAKER_ENDPOINT_NAME: string;
+  readonly VITE_APP_SAGEMAKER_ENDPOINT_CONFIG_NAME: string;
+  readonly VITE_APP_SAGEMAKER_MODELS: string;
 }
 
 interface ImportMeta {

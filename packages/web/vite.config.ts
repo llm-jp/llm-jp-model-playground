@@ -7,6 +7,6 @@ export default defineConfig({
   resolve: { alias: { './runtimeConfig': './runtimeConfig.browser' } },
   plugins: [react(), svgr()],
   server: {
-    port : 8080
-  }
+    port: 8080,
+  },
 });

@@ -2,6 +2,7 @@ import useChat from './useChat';
 import useChatApi from './useChatApi';
 import useRagApi from './useRagApi';
 import { ragPrompt } from '../prompts';
+import useModel from './useModel';
 
 const useRag = (id: string) => {
   const {
@@ -15,6 +16,7 @@ const useRag = (id: string) => {
     pushMessage,
     isEmpty,
   } = useChat(id);
+  const { models, generatePrompt } = useModel();
 
   const { retrieve } = useRagApi();
   const { predict } = useChatApi();
@@ -31,15 +33,18 @@ const useRag = (id: string) => {
       pushMessage(id, 'assistant', '[Kendra から参照ドキュメントを取得中...]');
 
       const query = await predict({
-        messages: [
-          {
-            role: 'user',
-            content: ragPrompt({
-              promptType: 'RETRIEVE',
-              retrieveQueries: [content],
-            }),
-          },
-        ],
+        inputs: generatePrompt(
+          [
+            {
+              role: 'user',
+              content: ragPrompt({
+                promptType: 'RETRIEVE',
+                retrieveQueries: [content],
+              }),
+            },
+          ],
+          models[0].name
+        ),
       });
 
       // Kendra から 参考ドキュメントを Retrieve してシステムコンテキストとして設定する

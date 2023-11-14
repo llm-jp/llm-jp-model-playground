@@ -1,6 +1,6 @@
 import { Stack, StackProps, CfnOutput } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { Auth, Api, Web, Database, Rag } from './construct';
+import { Auth, Api, Web, Database, Rag, LLM } from './construct';
 
 export class GenerativeAiUseCasesStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -12,10 +12,13 @@ export class GenerativeAiUseCasesStack extends Stack {
 
     const auth = new Auth(this, 'Auth');
     const database = new Database(this, 'Database');
+    const llm = new LLM(this, 'LLM');
     const api = new Api(this, 'API', {
       userPool: auth.userPool,
       idPool: auth.idPool,
       table: database.table,
+      endpointName: llm.endpointName,
+      endpointConfigName: llm.endpointConfigName,
     });
 
     const web = new Web(this, 'Api', {
@@ -25,6 +28,9 @@ export class GenerativeAiUseCasesStack extends Stack {
       idPoolId: auth.idPool.identityPoolId,
       predictStreamFunctionArn: api.predictStreamFunction.functionArn,
       ragEnabled,
+      endpointName: llm.endpointName,
+      endpointConfigName: llm.endpointConfigName,
+      models: JSON.stringify(llm.models),
     });
 
     if (ragEnabled) {
@@ -60,6 +66,18 @@ export class GenerativeAiUseCasesStack extends Stack {
 
     new CfnOutput(this, 'RagEnabled', {
       value: ragEnabled.toString(),
+    });
+
+    new CfnOutput(this, 'SageMakerEndpointName', {
+      value: JSON.stringify(llm.endpointName),
+    });
+
+    new CfnOutput(this, 'SageMakerEndpointConfigName', {
+      value: JSON.stringify(llm.endpointConfigName),
+    });
+
+    new CfnOutput(this, 'SageMakerModels', {
+      value: JSON.stringify(llm.models),
     });
   }
 }

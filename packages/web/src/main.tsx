@@ -8,13 +8,14 @@ import {
   RouteObject,
 } from 'react-router-dom';
 import LandingPage from './pages/LandingPage.tsx';
-import PlaygroundPage from './pages/Playground.tsx';
 import ChatPage from './pages/ChatPage.tsx';
 // import SummarizePage from './pages/SummarizePage.tsx';
 // import GenerateTextPage from './pages/GenerateTextPage.tsx';
 // import EditorialPage from './pages/EditorialPage.tsx';
 // import TranslatePage from './pages/TranslatePage.tsx';
 import NotFound from './pages/NotFound.tsx';
+import ChatPlaygroundPage from './pages/ChatPlayground.tsx';
+import TextPlaygroundPage from './pages/TextPlayground.tsx';
 // import KendraSearchPage from './pages/KendraSearchPage.tsx';
 // import RagPage from './pages/RagPage.tsx';
 
@@ -26,8 +27,12 @@ const routes: RouteObject[] = [
     element: <LandingPage />,
   },
   {
-    path: '/playground',
-    element: <PlaygroundPage />,
+    path: '/playground-text',
+    element: <TextPlaygroundPage />,
+  },
+  {
+    path: '/playground-chat',
+    element: <ChatPlaygroundPage />,
   },
   {
     path: '/chat',

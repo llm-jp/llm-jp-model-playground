@@ -18,11 +18,20 @@ import {
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
 
-  const demoPlayground = () => {
-    navigate('/playground', {
+  const demoTextPlayground = () => {
+    navigate('/playground-chat', {
       state: {
-        system: 'あなたはチャットでユーザを支援するAIアシスタントです。',
-        messages: [{ role: 'user', content: 'こんにちは' }],
+        inputs:
+          '### 指示：以下の質問に答えなさい。\n### 質問：日本で一番高い山は？\n### 回答：',
+      },
+    });
+  };
+
+  const demoChatPlayground = () => {
+    navigate('/playground-chat', {
+      state: {
+        system: '以下の質問に答えなさい。',
+        messages: [{ role: 'user', content: '日本で一番高い山は？' }],
       },
     });
   };
@@ -98,7 +107,18 @@ const LandingPage: React.FC = () => {
       </div>
 
       <div className="mx-20 grid gap-x-20 gap-y-10 md:grid-cols-1 xl:grid-cols-2">
-        <CardDemo label="Playground" onClickDemo={demoPlayground}>
+        <CardDemo label="Playground (Chat)" onClickDemo={demoChatPlayground}>
+          <div className="flex flex-row items-start">
+            <div className="mr-4 text-7xl">
+              <PiToggleLeft />
+            </div>
+            <div className="text-sm">
+              LLM
+              をさまざまなパラメータで試すことができます。プロンプトエンジニアリングやパラメーターチューニングの検証用環境としても有効です。
+            </div>
+          </div>
+        </CardDemo>
+        <CardDemo label="Playground (Text)" onClickDemo={demoTextPlayground}>
           <div className="flex flex-row items-start">
             <div className="mr-4 text-7xl">
               <PiToggleLeft />

@@ -2,7 +2,7 @@
 
 Amazon SageMaker エンドポイントにデプロイされた大規模言語モデルを利用することが可能です。
 
-Text Generation Inference (TGI) の Huggingface Container を使用した SageMaker Endpoint に対応しています。
+Deep Java Library (DJL) を使用した SageMaker Endpoint に対応しています。
 
 モデルはユーザーとアシスタントが交互に発言するチャット形式のプロンプトをサポートしているのが理想的です。
 
@@ -10,39 +10,23 @@ Text Generation Inference (TGI) の Huggingface Container を使用した SageMa
 
 **利用可能なモデル**
 
-- [SageMaker JumpStart Rinna 3.6B](https://aws.amazon.com/jp/blogs/news/generative-ai-rinna-japanese-llm-on-amazon-sagemaker-jumpstart/)
-- [SageMaker JumpStart Bilingual Rinna 4B](https://aws.amazon.com/jp/blogs/news/generative-ai-rinna-japanese-llm-on-amazon-sagemaker-jumpstart/)
-- [elyza/ELYZA-japanese-Llama-2-7b-instruct](https://github.com/aws-samples/aws-ml-jp/blob/f57da0343d696d740bb980dc16ebf28b1221f90e/tasks/generative-ai/text-to-text/fine-tuning/instruction-tuning/Transformers/Elyza_Inference_TGI_ja.ipynb)
+- [LLM-JP-13B]
 
-これらのモデル以外でも Text Generation Inference にデプロイしたモデルは利用可能です。
+これらのモデル以外でもチャット形式に対応していて DJL でデプロイしたモデルは利用可能です。
 
-## SageMaker エンドポイントをターゲットにソリューションをデプロイする
+## モデルを追加する
 
-事前にデプロイ済みの SageMaker エンドポイントをターゲットのソリューションをデプロイする際は、以下のようにコマンドライン引数で指定することができます。
-
-```bash
-npm run cdk:deploy -- -c modelType=sagemaker -c modelRegion=<SageMaker Endpoint Region> -c modelName=<SageMaker Endpoint Name> -c promptTemplate=<Prompt Template File>
+1. `packages/cdk/models` に新しいフォルダを追加し `serving.properties` を追加する。
+    1. 他のモデルを参考にパラメータを変更してください
+    2. DJL のパラメータの設定の仕方や Dependency の追加、推論コードのオーバーライド方法については [ドキュメント](https://sagemaker.readthedocs.io/en/stable/frameworks/djl/using_djl.html)をご確認ください。
+2. `./package_models.sh` を実行し、設定ファイルを圧縮する。
+3. `packages/cdk/lib/construct/llm.ts` にモデルのパスを追加する。
 ```
-
-promptTemplate はプロンプトを構築するためのテンプレートを JSON にしたファイル名を指定します。 (例: `llama2.json`)
-プロンプトテンプレートの例は `prompt-templates` フォルダを参照してください。
-
-## デプロイの例
-
-**Rinna 3.6B**
-
-```bash
-npm run cdk:deploy -- -c modelType=sagemaker -c modelRegion=us-west-2 -c modelName=jumpstart-dft-hf-llm-rinna-3-6b-instruction-ppo-bf16 -c promptTemplate=rinna.json
+  {
+    name: 'llm-jp-13b-instruct-full-jaster-dolly-oasst-v1',
+    path: 'models/llm-jp-13b-instruct-full-jaster-dolly-oasst-v1.0.tar.gz',
+    prompt_template_name: 'llmJp',
+  },
 ```
-
-**Bilingual Rinna 4B**
-
-```bash
-npm run cdk:deploy -- -c modelType=sagemaker -c modelRegion=us-west-2 -c modelName=jumpstart-dft-bilingual-rinna-4b-instruction-ppo-bf16 -c promptTemplate=bilingualRinna.json
-```
-
-**ELYZA-japanese-Llama-2-7b-instruct**
-
-```bash
-npm run cdk:deploy -- -c modelType=sagemaker -c modelRegion=us-west-2 -c modelName=elyza-7b-inference -c promptTemplate=llama2.json
-```
+4. `npm run cdk:deploy` でモデルをデプロイする。
+5. モデルを反映させるためにはエンドポイントを再起動する必要があるため、一度エンドポイントを落として立ち上げ直す。

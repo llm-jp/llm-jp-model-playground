@@ -2,6 +2,9 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { PredictRequest } from 'generative-ai-use-cases-jp';
 import sagemakerApi from './utils/sagemakerApi';
 import bedrockApi from './utils/bedrockApi';
+import { Logger } from '@aws-lambda-powertools/logger';
+
+const logger = new Logger();
 
 const modelType = process.env.MODEL_TYPE || 'bedrock';
 const api =
@@ -15,7 +18,7 @@ export const handler = async (
 ): Promise<APIGatewayProxyResult> => {
   try {
     const req: PredictRequest = JSON.parse(event.body!);
-    const response = await api.invoke(req.messages);
+    const response = await api.invoke(req.inputs);
 
     return {
       statusCode: 200,
@@ -25,8 +28,8 @@ export const handler = async (
       },
       body: JSON.stringify(response),
     };
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    logger.error(error);
     return {
       statusCode: 500,
       headers: {

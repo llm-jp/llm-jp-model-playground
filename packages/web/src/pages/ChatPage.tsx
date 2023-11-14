@@ -6,27 +6,38 @@ import ChatMessage from '../components/ChatMessage';
 import useScroll from '../hooks/useScroll';
 import { create } from 'zustand';
 import { ReactComponent as MLLogo } from '../assets/model.svg';
+import useModel from '../hooks/useModel';
+import { SelectField } from '@aws-amplify/ui-react';
 
 type StateType = {
   content: string;
-  setContent: (c: string) => void;
+  setContent: (s: string) => void;
+  variant: string;
+  setVariant: (s: string) => void;
 };
 
 const useChatPageState = create<StateType>((set) => {
   return {
     content: '',
+    variant: '',
     setContent: (s: string) => {
       set(() => ({
         content: s,
+      }));
+    },
+    setVariant: (s: string) => {
+      set(() => ({
+        variant: s,
       }));
     },
   };
 });
 
 const ChatPage: React.FC = () => {
-  const { content, setContent } = useChatPageState();
+  const { content, setContent, variant, setVariant } = useChatPageState();
   const { state, pathname } = useLocation();
   const { chatId } = useParams();
+  const { models } = useModel();
 
   const { loading, loadingMessages, isEmpty, messages, clear, postChat } =
     useChat(pathname, chatId);
@@ -36,11 +47,12 @@ const ChatPage: React.FC = () => {
     if (state !== null) {
       setContent(state.content);
     }
+    setVariant(models[0].name);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
   const onSend = useCallback(() => {
-    postChat(content);
+    postChat(content, false, variant);
     setContent('');
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -71,6 +83,20 @@ const ChatPage: React.FC = () => {
             </div>
           </>
         )}
+
+        <div className="flex w-full items-end justify-center">
+          <SelectField
+            label="モデル"
+            labelHidden
+            value={variant}
+            onChange={(e) => setVariant(e.target.value)}>
+            {models.map((model) => (
+              <option key={model.name} value={model.name}>
+                {model.name}
+              </option>
+            ))}
+          </SelectField>
+        </div>
 
         {loadingMessages && (
           <div className="relative flex h-screen flex-col items-center justify-center">

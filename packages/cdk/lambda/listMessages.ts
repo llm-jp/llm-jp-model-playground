@@ -1,5 +1,8 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { findChatById, listMessages } from './repository';
+import { Logger } from '@aws-lambda-powertools/logger';
+
+const logger = new Logger();
 
 export const handler = async (
   event: APIGatewayProxyEvent
@@ -33,8 +36,8 @@ export const handler = async (
         messages,
       }),
     };
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    logger.error(error);
     return {
       statusCode: 500,
       headers: {
