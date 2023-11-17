@@ -28,8 +28,8 @@ export const handler = async (
       },
       body: JSON.stringify(response),
     };
-  } catch (error: any) {
-    logger.error(error);
+  } catch (error: unknown) {
+    if (error instanceof Error) logger.error(error.message);
     return {
       statusCode: 500,
       headers: {
