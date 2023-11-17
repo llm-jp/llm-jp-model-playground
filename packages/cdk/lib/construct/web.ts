@@ -12,6 +12,7 @@ export interface WebProps {
   idPoolId: string;
   predictStreamFunctionArn: string;
   ragEnabled: boolean;
+  selfSignUpEnabled: boolean;
   endpointName: string;
   endpointConfigName: string;
   models: string;
@@ -82,6 +83,7 @@ export class Web extends Construct {
         VITE_APP_SAGEMAKER_ENDPOINT_NAME: props.endpointName,
         VITE_APP_SAGEMAKER_ENDPOINT_CONFIG_NAME: props.endpointConfigName,
         VITE_APP_SAGEMAKER_MODELS: props.models,
+        VITE_APP_SELF_SIGN_UP_ENABLED: props.selfSignUpEnabled.toString(),
       },
     });
 

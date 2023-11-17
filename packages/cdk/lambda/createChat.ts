@@ -22,7 +22,7 @@ export const handler = async (
         chat,
       }),
     };
-  } catch (error: any) {
+  } catch (error) {
     logger.error(error);
     return {
       statusCode: 500,
