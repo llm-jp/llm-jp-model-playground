@@ -27,7 +27,7 @@ Pull Request による貢献は大歓迎です。 Pull Request を送信する�
 
 Pull Request を送信するには、次の手順を実行してください。開発環境の構築は [DEVELOPMENT.md](docs/DEVELOPMENT.md) を参照してください。
 
-1. 本リポジトリを Fork します。
+1. 本リポジトリを Fork します (Commit 権限がある場合 Clone で構いません) 。
    * 参考 : [forking a repository](https://help.github.com/articles/fork-a-repo/)
 2. ソースを変更します。あなたが提案する修正に集中し変更してください。すべてのコードを再フォーマットしたりすると、変更に焦点を当てることが難しくなります。
 3. ローカルでのテストにパスすることを確認します。

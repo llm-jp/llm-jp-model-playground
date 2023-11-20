@@ -61,7 +61,7 @@ export VITE_APP_REGION=ap-northeast-1
 npm run web:dev
 ```
 
-正常に実行されれば http://localhost:5173 で起動しますので、ブラウザからアクセスしてみてください。
+正常に実行されれば http://localhost:8080 で起動しますので、ブラウザからアクセスしてみてください。
 
 ### バックエンドの動作確認
 
