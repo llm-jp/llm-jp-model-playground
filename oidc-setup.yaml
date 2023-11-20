@@ -23,8 +23,6 @@ Resources:
             Condition:
               StringLike: 
                 token.actions.githubusercontent.com:sub: !Sub repo:${GithubOrg}/${RepoName}:*
-              StringEquals:
-                token.actions.githubusercontent.com:aud: sts.amazonaws.com
       Policies:
         - PolicyName: GitHubOidcPolicy
           PolicyDocument:
