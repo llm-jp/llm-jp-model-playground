@@ -73,6 +73,8 @@ npm run web:dev
 
 * (SageMaker Endpoint の動作確認方法について記載)
 
+**モデルの変更の反映は、一度落として再起動しないと反映されないので注意してください**
+
 #### モデルの追加手順
 
 1. `packages/cdk/models` に新しいフォルダを追加し `serving.properties` を追加する。
