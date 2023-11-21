@@ -34,7 +34,7 @@ Pull Request を送信するには、次の手順を実行してください。�
    * ソースコードの成形 : `npm run lint`
 4. 変更内容が明確なコミットメッセージでコミットし、 Fork したリポジトリに push します。
 5. Fork したリポジトリの Pull Request の画面から、本リポジトリの `main` ブランチに対し Pull Request を作成します。
-   * **DynamoDB のスキーマ構造を変える時はバックアップを取得してください**
+   * [**DynamoDB のスキーマ構造を変える時はバックアップを取得してください**](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/BackupRestore.html)
 6. Pull Request に対しレビューを受けます。レビューが完了したらマージを行います。
    * CI/CD の仕組みに関心ある場合は [CICD Setup](./docs/CICD_SETUP.md) をご参照ください。
 
