@@ -1,59 +1,56 @@
 # Contributing Guidelines
 
-Thank you for your interest in contributing to our project. Whether it's a bug report, new feature, correction, or additional
-documentation, we greatly value feedback and contributions from our community.
+プレイグラウンドの開発への協力に関心を持っていただきありがとうございます。バグの報告、新機能の提案、それらの修正 / 実装、またドキュメントの充実にはコミュニティからの貢献が大きな力となります。
 
-Please read through this document before submitting any issues or pull requests to ensure we have all the necessary
-information to effectively respond to your bug report or contribution.
+Issue や Pull Request を送信する前にこのドキュメントをよく読み、必要な情報がすべて揃っていることを確認してください。
 
+## Issue でバグの報告や新機能の提案を行う
 
-## Reporting Bugs/Feature Requests
+GitHub Issue を使用してバグを報告したり、新機能を提案したりすることを歓迎します。 Issue を起票する前に既存または解決済みの Issue を探すことで解決策が得られることがあるので、事前に確認をしてください。もしこれまで議論されておらず解決もされていない場合、  Issue Template に従い起票をしてください。できるだけ多くの情報を含めるようにしてください。次のような詳細は非常に役立ちます。
 
-We welcome you to use the GitHub issue tracker to report bugs or suggest features.
+* 再現可能なテストケースまたは一連のステップ
+* 使用しているコードのバージョン
+* バグに関連して行った変更
+* 環境または展開に関する異常な点
 
-When filing an issue, please check existing open, or recently closed, issues to make sure somebody else hasn't already
-reported the issue. Please try to include as much information as you can. Details like these are incredibly useful:
+## Pull Request で貢献する
 
-* A reproducible test case or series of steps
-* The version of our code being used
-* Any modifications you've made relevant to the bug
-* Anything unusual about your environment or deployment
+Pull Request による貢献は大歓迎です。 Pull Request を送信する前に、次のことを確認してください。
 
+1. *main* ブランチ上の最新のソースに対して作業しています。
+2. 既存の Pull Request をチェックして、他の人がまだ問題に対処していないことを確認します。
+3. 重要な作業について話し合うために Issue を開きます。あなたの時間を無駄にすることは望ましくありません。
 
-## Contributing via Pull Requests
-Contributions via pull requests are much appreciated. Before sending us a pull request, please ensure that:
+次のボードを参照することで、バグ・追加要望の対応状況を参照することができます。
 
-1. You are working against the latest source on the *main* branch.
-2. You check existing open, and recently merged, pull requests to make sure someone else hasn't addressed the problem already.
-3. You open an issue to discuss any significant work - we would hate for your time to be wasted.
+[llmjp playground development board](https://github.com/orgs/llm-jp/projects/3)
 
-To send us a pull request, please:
+Pull Request を送信するには、次の手順を実行してください。開発環境の構築は [DEVELOPMENT.md](docs/DEVELOPMENT.md) を参照してください。
 
-1. Fork the repository.
-2. Modify the source; please focus on the specific change you are contributing. If you also reformat all the code, it will be hard for us to focus on your change.
-3. Ensure local tests pass.
-4. Commit to your fork using clear commit messages.
-5. Send us a pull request, answering any default questions in the pull request interface.
-6. Pay attention to any automated CI failures reported in the pull request, and stay involved in the conversation.
+1. 本リポジトリを Fork します (Commit 権限がある場合 Clone で構いません) 。
+   * 参考 : [forking a repository](https://help.github.com/articles/fork-a-repo/)
+2. ソースを変更します。あなたが提案する修正に集中し変更してください。すべてのコードを再フォーマットしたりすると、変更に焦点を当てることが難しくなります。
+3. ローカルでのテストにパスすることを確認します。
+   * ソースコードの成形 : `npm run lint`
+4. 変更内容が明確なコミットメッセージでコミットし、 Fork したリポジトリに push します。
+5. Fork したリポジトリの Pull Request の画面から、本リポジトリの `main` ブランチに対し Pull Request を作成します。
+6. Pull Request に対しレビューを受けます。レビューが完了したらマージを行います。
+   * CI/CD の仕組みに関心ある場合は [CICD Setup](./docs/CICD_SETUP.md) をご参照ください。
 
-GitHub provides additional document on [forking a repository](https://help.github.com/articles/fork-a-repo/) and
-[creating a pull request](https://help.github.com/articles/creating-a-pull-request/).
+GitHub のガイドも参考にしてください [pull request の作成](https://docs.github.com/ja/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
 
+## 貢献できる Issue を見つける
 
-## Finding contributions to work on
-Looking at the existing issues is a great way to find something to contribute on. As our projects, by default, use the default GitHub issue labels (enhancement/bug/duplicate/help wanted/invalid/question/wontfix), looking at any 'help wanted' issues is a great place to start.
+[`good first issue` がついた Issue ](https://github.com/llm-jp/llm-jp-model-playground/labels/good%20first%20issue) は最初の貢献に適しています。自身に AWS やアプリケーション開発の知見がある場合、 `help wanted` がついた Issue をぜひサポートしてください。
 
+## 行動規範
 
-## Code of Conduct
-This project has adopted the [Amazon Open Source Code of Conduct](https://aws.github.io/code-of-conduct).
-For more information see the [Code of Conduct FAQ](https://aws.github.io/code-of-conduct-faq) or contact
-opensource-codeofconduct@amazon.com with any additional questions or comments.
+本プロジェクトの行動規範は、 [CONTRIBUTOR COVENANT CODE OF CONDUCT 2.1](https://www.contributor-covenant.org/version/2/1/code_of_conduct/) に基づきます。行動規範への違反を見つけた場合や規範に関する質問は `llm-jp@nii.ac.jp` までご連絡ください。
 
+## セキュリティの報告について
 
-## Security issue notifications
-If you discover a potential security issue in this project we ask that you notify AWS/Amazon Security via our [vulnerability reporting page](http://aws.amazon.com/security/vulnerability-reporting/). Please do **not** create a public github issue.
+本プロジェクトについてセキュリティの脆弱性などを発見した場合は、 `llm-jp@nii.ac.jp` までご連絡ください。**決して Public な Issue で報告しないでください**
 
+## ライセンス
 
-## Licensing
-
-See the [LICENSE](LICENSE) file for our project's licensing. We will ask you to confirm the licensing of your contribution.
+本プロジェクトのライセンスは [LICENSE](LICENSE) を参照してください。本プロジェクトへの貢献を行う際は、このライセンスの範囲内で利用可能なものであるかご確認をお願いいたします。例えば、本プロジェクトのライセンスよりも Limited なライセンスのソフトウェアやコードを含めることはできません。
