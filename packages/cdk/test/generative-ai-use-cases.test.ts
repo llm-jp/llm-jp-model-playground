@@ -1,7 +1,7 @@
 import * as cdk from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
 import { GenerativeAiUseCasesStack } from "../lib/generative-ai-use-cases-stack";
-import { describe, test, expect } from "@jest/globals";
+import { test, expect } from "@jest/globals";
 
 test("snapshot test", () => {
   const app = new cdk.App();
