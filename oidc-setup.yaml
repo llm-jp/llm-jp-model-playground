@@ -1,0 +1,45 @@
+Parameters:
+  GithubOrg:
+    Type: String
+    Default: example-org
+  RepoName:
+    Type: String
+    Default: cfn-cicd
+  RoleName:
+    Type: String
+    Default: GitHubOidcRole
+
+Resources:
+  Role:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Ref RoleName
+      AssumeRolePolicyDocument: 
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRoleWithWebIdentity
+            Principal: 
+              Federated: !Ref GithubOidc
+            Condition:
+              StringLike: 
+                token.actions.githubusercontent.com:sub: !Sub repo:${GithubOrg}/${RepoName}:*
+      Policies:
+        - PolicyName: GitHubOidcPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: sts:AssumeRole
+                Resource: !Sub arn:aws:iam::${AWS::AccountId}:role/cdk-*
+
+  GithubOidc:
+    Type: AWS::IAM::OIDCProvider
+    Properties:
+      Url: https://token.actions.githubusercontent.com
+      ThumbprintList: [1b511abead59c6ce207077c0bf0e0043b1382612]
+      ClientIdList: 
+        - sts.amazonaws.com
+
+Outputs:
+  Role:
+    Value: !GetAtt Role.Arn
