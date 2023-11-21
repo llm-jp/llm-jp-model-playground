@@ -1,5 +1,5 @@
 on:
-  merge:
+  push:
     branches:
     - main
 
