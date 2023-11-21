@@ -39,6 +39,24 @@ CDK を利用したことがない場合、初回のみ [Bootstrap](https://docs
 npx -w packages/cdk cdk bootstrap
 ```
 
+このレポジトリで GitHub Actions を用いた CI/CD を利用する場合、用意されている Cloudformation テンプレートを利用して IAM 関連のセットアップを
+自動で行うことができます。レポジトリを Clone したディレクトリにて、 `GitHub_ORG_NAME` と `GitHub_REPO_NAME` を適切に設定して以下のコマンドを実行してください。
+※ コマンドの実行には適切な権限が必要です。
+
+```bash
+stack_name="oidc-setup" 
+aws cloudformation create-stack --capabilities CAPABILITY_NAMED_IAM --stack-name $stack_name --template-body file://oidc-setup.yaml --parameters ParameterKey=GithubOrg,ParameterValue=<GitHub_ORG_NAME> ParameterKey=RepoName,ParameterValue=<GitHub_REPO_NAME>
+
+aws cloudformation wait stack-create-complete --stack-name $stack_name
+
+outputs=$(aws cloudformation describe-stacks --stack-name $stack_name --query 'Stacks[0].Outputs' --output text)
+
+echo "Stack Outputs:"
+echo "$outputs" 
+```
+実行したターミナルに IAM Role の arn が出力されます。この後の手順で必要になるので、メモしておきます。
+追加で GitHub 側での設定が必要です。追加の手続きは [/docs/CICD_SETUP.md](docs/CICD_SETUP.md##GitHub-側での設定) をご確認ください。
+
 続いて、以下のコマンドで AWS リソースをデプロイします。デプロイが完了するまで、お待ちください（20 分程度かかる場合があります）。
 
 ```bash

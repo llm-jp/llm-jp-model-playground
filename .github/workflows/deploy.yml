@@ -1,0 +1,40 @@
+on:
+  merge:
+    branches:
+    - main
+
+env:
+  AWS_REGION: us-west-2
+
+jobs:
+  deploy:
+    permissions:
+     
+      id-token: write
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Get temporary credentials with OIDC
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{ vars.AWS_OIDC_ROLE_ARN }}
+          aws-region: ${{env.AWS_REGION}}
+
+      - name: Cache Dependency
+        uses: actions/cache@v3
+        id: cache_dependency_id
+        env:
+          cache-name: cache-cdk-dependency
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}-
+
+      - name: Deploy
+        run: |
+            npm ci
+            npm run cdk:deploy -- --require-approval="never" --all
+
