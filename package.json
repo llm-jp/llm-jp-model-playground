@@ -10,8 +10,9 @@
     "web:build": "npm -w packages/web run build",
     "web:lint": "npm -w packages/web run lint",
     "cdk:deploy": "npm -w packages/cdk run cdk deploy --",
-    "cdk:watch": "npm -w packages/cdk run cdk watch --",
-    "cdk:lint": "npm -w packages/cdk run lint"
+    "cdk:watch": "npm -w packages/cdk run cdk watch",
+    "cdk:lint": "npm -w packages/cdk run lint",
+    "cdk:test": "npm -w packages/cdk run test"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.4",
