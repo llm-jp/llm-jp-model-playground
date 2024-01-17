@@ -5,4 +5,6 @@ import { GenerativeAiUseCasesStack } from '../lib/generative-ai-use-cases-stack'
 
 const app = new cdk.App();
 
-new GenerativeAiUseCasesStack(app, 'GenerativeAiUseCasesStack');
+const stage = app.node.tryGetContext('stage');
+
+new GenerativeAiUseCasesStack(app, `${stage}GenerativeAiUseCasesStack`);
