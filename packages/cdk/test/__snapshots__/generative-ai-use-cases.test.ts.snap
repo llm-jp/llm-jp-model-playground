@@ -141,7 +141,7 @@ exports[`snapshot test 1`] = `
       },
     },
     "SageMakerEndpointConfigName": {
-      "Value": ""llm-jp-endpoint-config-20231120155217"",
+      "Value": ""llm-jp-endpoint-config-20231208113413"",
     },
     "SageMakerEndpointName": {
       "Value": ""llm-jp-endpoint"",
@@ -2857,7 +2857,7 @@ exports[`snapshot test 1`] = `
                       {
                         "Ref": "AWS::AccountId",
                       },
-                      ":endpoint-config/llm-jp-endpoint-config-20231120155217",
+                      ":endpoint-config/llm-jp-endpoint-config-20231208113413",
                     ],
                   ],
                 },
@@ -3352,7 +3352,7 @@ exports[`snapshot test 1`] = `
                       {
                         "Ref": "AWS::AccountId",
                       },
-                      ":endpoint-config/llm-jp-endpoint-config-20231120155217",
+                      ":endpoint-config/llm-jp-endpoint-config-20231208113413",
                     ],
                   ],
                 },
@@ -3476,7 +3476,7 @@ exports[`snapshot test 1`] = `
                       {
                         "Ref": "AWS::AccountId",
                       },
-                      ":endpoint-config/llm-jp-endpoint-config-20231120155217",
+                      ":endpoint-config/llm-jp-endpoint-config-20231208113413",
                     ],
                   ],
                 },
@@ -3635,7 +3635,7 @@ exports[`snapshot test 1`] = `
                       {
                         "Ref": "AWS::AccountId",
                       },
-                      ":endpoint-config/llm-jp-endpoint-config-20231120155217",
+                      ":endpoint-config/llm-jp-endpoint-config-20231208113413",
                     ],
                   ],
                 },
@@ -3984,7 +3984,7 @@ exports[`snapshot test 1`] = `
                       {
                         "Ref": "AWS::AccountId",
                       },
-                      ":endpoint-config/llm-jp-endpoint-config-20231120155217",
+                      ":endpoint-config/llm-jp-endpoint-config-20231208113413",
                     ],
                   ],
                 },
@@ -4017,7 +4017,7 @@ exports[`snapshot test 1`] = `
         "Environment": {
           "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-            "ENDPOINT_CONFIG_NAME": "llm-jp-endpoint-config-20231120155217",
+            "ENDPOINT_CONFIG_NAME": "llm-jp-endpoint-config-20231208113413",
             "ENDPOINT_NAME": "llm-jp-endpoint",
           },
         },
@@ -4105,7 +4105,7 @@ exports[`snapshot test 1`] = `
                       {
                         "Ref": "AWS::AccountId",
                       },
-                      ":endpoint-config/llm-jp-endpoint-config-20231120155217",
+                      ":endpoint-config/llm-jp-endpoint-config-20231208113413",
                     ],
                   ],
                 },
@@ -4142,7 +4142,7 @@ exports[`snapshot test 1`] = `
         "destinationBucketName": {
           "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
         },
-        "destinationObjectKey": "fc887722ed888e2b9c9d5efd66439184.zip",
+        "destinationObjectKey": "4e0c822b8a385a860da7905e20e55d65.zip",
         "environment": {
           "VITE_APP_API_ENDPOINT": {
             "Fn::Join": [
@@ -4181,7 +4181,7 @@ exports[`snapshot test 1`] = `
           "VITE_APP_REGION": {
             "Ref": "AWS::Region",
           },
-          "VITE_APP_SAGEMAKER_ENDPOINT_CONFIG_NAME": "llm-jp-endpoint-config-20231120155217",
+          "VITE_APP_SAGEMAKER_ENDPOINT_CONFIG_NAME": "llm-jp-endpoint-config-20231208113413",
           "VITE_APP_SAGEMAKER_ENDPOINT_NAME": "llm-jp-endpoint",
           "VITE_APP_SAGEMAKER_MODELS": "[{"name":"llm-jp-13b-instruct-full-jaster-dolly-oasst-v1","path":"models/llm-jp-13b-instruct-full-jaster-dolly-oasst-v1.0.tar.gz","prompt_template_name":"llmJp"},{"name":"llm-jp-13b-instruct-lora-jaster-dolly-oasst-v1","path":"models/llm-jp-13b-instruct-lora-jaster-dolly-oasst-v1.0.tar.gz","prompt_template_name":"llmJp"}]",
           "VITE_APP_SELF_SIGN_UP_ENABLED": "false",
@@ -4199,7 +4199,7 @@ exports[`snapshot test 1`] = `
             "sourceBucketName": {
               "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
             },
-            "sourceObjectKey": "bdd91859d458b67f0c3e0f2823055b6e545d4ad150fd579076124f59660887ca.zip",
+            "sourceObjectKey": "e87a90374674d57afae1ad0d76931b5fc181a097dde91cd9334b3ae83303863d.zip",
           },
         ],
         "type": "NodejsBuild",
@@ -4248,7 +4248,7 @@ exports[`snapshot test 1`] = `
           },
         ],
         "SourceObjectKeys": [
-          "fc887722ed888e2b9c9d5efd66439184.zip",
+          "4e0c822b8a385a860da7905e20e55d65.zip",
         ],
       },
       "Type": "Custom::CDKBucketDeployment",
@@ -5572,7 +5572,7 @@ exports[`snapshot test 1`] = `
         "LLMsagemakermodelllmjp13binstructlorajasterdollyoasstv1RoleF42A9559",
       ],
       "Properties": {
-        "EndpointConfigName": "llm-jp-endpoint-config-20231120155217",
+        "EndpointConfigName": "llm-jp-endpoint-config-20231208113413",
         "ProductionVariants": [
           {
             "InitialInstanceCount": 1,
@@ -5614,7 +5614,7 @@ exports[`snapshot test 1`] = `
             "Arn",
           ],
         },
-        "ModelName": "llm-jp-13b-instruct-full-jaster-dolly-oasst-v1-20231120155217",
+        "ModelName": "llm-jp-13b-instruct-full-jaster-dolly-oasst-v1-20231208113413",
         "PrimaryContainer": {
           "Image": {
             "Fn::Join": [
@@ -5787,7 +5787,7 @@ exports[`snapshot test 1`] = `
             "Arn",
           ],
         },
-        "ModelName": "llm-jp-13b-instruct-lora-jaster-dolly-oasst-v1-20231120155217",
+        "ModelName": "llm-jp-13b-instruct-lora-jaster-dolly-oasst-v1-20231208113413",
         "PrimaryContainer": {
           "Image": {
             "Fn::Join": [
