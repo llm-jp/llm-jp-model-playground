@@ -19,12 +19,17 @@ export class LLM extends Construct {
   public readonly models: Model[] = models;
   public readonly deploy_suffix: string =
     '-' + new Date().toISOString().replace(/[:T-]/g, '').split('.')[0];
-  public readonly endpointConfigName =
-    'llm-jp-endpoint-config' + this.deploy_suffix;
-  public readonly endpointName = 'llm-jp-endpoint';
+  public readonly endpointConfigName;
+  public readonly endpointName;
 
   constructor(scope: Construct, id: string) {
     super(scope, id);
+
+    // Specify Endpoint with stage suffix
+    const stage = this.node.tryGetContext('stage');
+    const prefix = stage ? `${stage}-` : '';
+    this.endpointConfigName = prefix + 'llm-jp-endpoint-config' + this.deploy_suffix;
+    this.endpointName = prefix + 'llm-jp-endpoint';
 
     // Get Container Image
     // https://github.com/aws/deep-learning-containers/blob/master/available_images.md
