@@ -59,7 +59,7 @@ npm run cdk:deploy
 > [!NOTE]
 > 開発環境を構築する際は、本番環境を上書きしないよう `-c` で `stage` を使用してください。
 > ```bash
-> npm run cdk:deploy -c stage=<stage>
+> npm run cdk:deploy -- -c stage=<stage>
 > ```
 
 アプリケーションのデプロイが完了したら、コンソールに出力される `WebUrl` の URL からアクセスしてください。コンソールの出力をとり漏らした場合は、  AWS Console にログインし次の手順で確認してください。
