@@ -75,6 +75,12 @@ CDK ではバックエンドの変更をリアルタイムにデプロイし反�
 npm run cdk:watch
 ```
 
+環境を指定する際は、`-c` で `stage` を使用してください。
+
+```bash
+npm run cdk:watch -- -c stage=<stage>
+```
+
 裏ではファイルの変更がモニタされ Lambda への変更はホットスワップデプロイが実行され、CDK の更新なしにバックエンドにデプロイすることが可能です。その他の変更は通常の CloudFormation の完全なデプロイにフォールバックします。
 詳細ついては [CDK Workshop](https://cdkworkshop.com/ja/20-typescript/30-hello-cdk/300-cdk-watch.html#cdk-watch) をご確認ください。
 
