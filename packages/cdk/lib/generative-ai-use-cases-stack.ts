@@ -78,11 +78,11 @@ export class GenerativeAiUseCasesStack extends Stack {
     });
 
     new CfnOutput(this, 'SageMakerEndpointName', {
-      value: JSON.stringify(llm.endpointName),
+      value: llm.endpointName,
     });
 
     new CfnOutput(this, 'SageMakerEndpointConfigName', {
-      value: JSON.stringify(llm.endpointConfigName),
+      value: llm.endpointConfigName,
     });
 
     new CfnOutput(this, 'SageMakerModels', {
