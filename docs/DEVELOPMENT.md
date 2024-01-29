@@ -8,7 +8,7 @@ AWS が初めての場合、 AWS 、特に本プレイグラウンドで利用�
 
 勉強のための資料は次の資料をご参照ください。
 
-* (準備中)
+* [第一回 : AWS 基礎トレーニング](https://speakerdeck.com/icoxfog417/aws-ji-chu-toreningu-at-llm-mian-qiang-hui)
 
 フロントエンドの構築に利用している React については、 React の公式ドキュメントが非常に丁寧に書かれているので一通り流してみてください。
 
