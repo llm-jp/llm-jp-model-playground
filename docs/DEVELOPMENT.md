@@ -9,6 +9,8 @@ AWS が初めての場合、 AWS 、特に本プレイグラウンドで利用�
 勉強のための資料は次の資料をご参照ください。
 
 * [第一回 : AWS 基礎トレーニング](https://speakerdeck.com/icoxfog417/aws-ji-chu-toreningu-at-llm-mian-qiang-hui)
+* [第二回 : AWS サーバーレスアプリケーション構築トレーニング](https://speakerdeck.com/icoxfog417/llmmian-qiang-hui-yang-xiang-ke-sabaresunhanzuon)
+* 第三回 : 本開発者ガイドを上から順に実行
 
 フロントエンドの構築に利用している React については、 React の公式ドキュメントが非常に丁寧に書かれているので一通り流してみてください。
 
@@ -89,9 +91,9 @@ CreateUserAccessKey の設定
 
 #### 1.2 権限の設定
 
-AWS のユーザーを作成したら、 [AWS CLI](https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/cli-chap-welcome.html) を使い AWS にアクセスできるか確認してください。
+AWS のユーザーを作成したら、 [AWS CLI](https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/cli-chap-welcome.html) を使いコマンドから AWS にアクセスできるか確認してください。
 
-手順は次の記事などを参考にしてください。
+AWS CLI からのアクセス手順は次の記事などを参考にしてください。
 
 * [【AWS】aws cliの設定方法](https://zenn.dev/akkie1030/articles/aws-cli-setup-tutorial)
 * [AWS CLI初期設定手順（Linux）](https://blog.serverworks.co.jp/2023/08/25/150000)
@@ -191,32 +193,11 @@ npm run web:devw
 デプロイ完了時に表示される Outputs から API の Endpoint (Output key = APIApiEndpoint...)、Cognito User Pool ID (Output key = AuthUserPoolId...)、Cognito User Pool Client ID (Output Key = AuthUserPoolClientId...) 、Cognito Identity Pool ID (Output Key = AuthIdPoolId...)、レスポンスストリーミングの Lambda 関数の ARN (Output Key = APIPredictStreamFunctionArn...) を取得します。
 
 デプロイ時の出力が消えている場合、[CloudFormation](https://console.aws.amazon.com/cloudformation/home) の GenerativeAiUseCasesStack をクリックして Outputs タブから確認できます。
-それらの値を以下のように環境変数に設定してください。
+
+続いて Git bash を使用し以下のコマンドを実行します (Git Bash は Git インストールに付属している Shell のターミナルで、 VSCode などから使用できます )。
 
 ```bash
-export VITE_APP_API_ENDPOINT=<API Endpoint>
-export VITE_APP_USER_POOL_ID=<Cognito User Pool ID>
-export VITE_APP_USER_POOL_CLIENT_ID=<Cognito User Pool Client ID>
-export VITE_APP_IDENTITY_POOL_ID=<Cognito Identity Pool ID>
-export VITE_APP_PREDICT_STREAM_FUNCTION_ARN=<Function ARN>
-export VITE_APP_REGION=<デプロイしたリージョン>
-```
-
-具体例は以下です。
-
-```bash
-export VITE_APP_API_ENDPOINT=https://xxxxxxxxxx.execute-api.ap-northeast-1.amazonaws.com/api/
-export VITE_APP_USER_POOL_ID=ap-northeast-1_xxxxxxxxx
-export VITE_APP_USER_POOL_CLIENT_ID=abcdefghijklmnopqrstuvwxyz
-export VITE_APP_IDENTITY_POOL_ID=ap-northeast-1:xxxxxxxx-xxxx-xxxx-xxxxxxxxxxxxxxxxx
-export VITE_APP_PREDICT_STREAM_FUNCTION_ARN=arn:aws:lambda:ap-northeast-1:000000000000:function:FunctionName
-export VITE_APP_REGION=ap-northeast-1
-```
-
-続いて以下のコマンドを実行します。
-
-```bash
-npm run web:dev
+source setup-env.sh && npm -w packages/web run dev
 ```
 
 正常に実行されれば http://localhost:8080 で起動しますので、ブラウザからアクセスしてみてください。プレイグラウンドの内部に入るためにはプレイグラウンドのアカウントが必要です。作成する手順は [README.md](../README.md) の「アカウント作成手順」を参照してください。
