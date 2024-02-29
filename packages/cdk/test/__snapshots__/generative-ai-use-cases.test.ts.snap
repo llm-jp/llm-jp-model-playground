@@ -141,10 +141,10 @@ exports[`snapshot test 1`] = `
       },
     },
     "SageMakerEndpointConfigName": {
-      "Value": ""llm-jp-endpoint-config-20231120155217"",
+      "Value": "llm-jp-endpoint-config-[TIMESTAMP REMOVED]",
     },
     "SageMakerEndpointName": {
-      "Value": ""llm-jp-endpoint"",
+      "Value": "llm-jp-endpoint",
     },
     "SageMakerModels": {
       "Value": "[{"name":"llm-jp-13b-instruct-full-jaster-dolly-oasst-v1","path":"models/llm-jp-13b-instruct-full-jaster-dolly-oasst-v1.0.tar.gz","prompt_template_name":"llmJp"},{"name":"llm-jp-13b-instruct-lora-jaster-dolly-oasst-v1","path":"models/llm-jp-13b-instruct-lora-jaster-dolly-oasst-v1.0.tar.gz","prompt_template_name":"llmJp"}]",
@@ -2394,7 +2394,7 @@ exports[`snapshot test 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "0caa1d8af824f7f430dafafd4695dc8cc7110ec4df0381f392ff886a9f4c4ac6.zip",
+          "S3Key": "[HASH REMOVED].zip",
         },
         "Environment": {
           "Variables": {
@@ -2505,7 +2505,7 @@ exports[`snapshot test 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "c6d740f94d4bc9b54b9f5b1a24e394a8955da2d090a59767e15b66898198b6e3.zip",
+          "S3Key": "[HASH REMOVED].zip",
         },
         "Environment": {
           "Variables": {
@@ -2616,7 +2616,7 @@ exports[`snapshot test 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "53a78b9548c47bff5f2f89de6960dba7b34f3191fa0de8f9568e7c0879bc6be1.zip",
+          "S3Key": "[HASH REMOVED].zip",
         },
         "Environment": {
           "Variables": {
@@ -2750,7 +2750,7 @@ exports[`snapshot test 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "94b426ba0e898f8941f047304a96c20cf4766ca3e49dcae506d497f8025d2a95.zip",
+          "S3Key": "[HASH REMOVED].zip",
         },
         "Environment": {
           "Variables": {
@@ -2857,7 +2857,7 @@ exports[`snapshot test 1`] = `
                       {
                         "Ref": "AWS::AccountId",
                       },
-                      ":endpoint-config/llm-jp-endpoint-config-20231120155217",
+                      ":endpoint-config/llm-jp-endpoint-config-[TIMESTAMP REMOVED]",
                     ],
                   ],
                 },
@@ -2888,7 +2888,7 @@ exports[`snapshot test 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "af80ccfe8ea89fc0cf935a813dcbff05de72e65af9454183991a4f5a112c086f.zip",
+          "S3Key": "[HASH REMOVED].zip",
         },
         "Environment": {
           "Variables": {
@@ -3002,7 +3002,7 @@ exports[`snapshot test 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "12d091d805a4af41db11fc3394d783c38c1a5663de8f7837ff849266dd81cc77.zip",
+          "S3Key": "[HASH REMOVED].zip",
         },
         "Environment": {
           "Variables": {
@@ -3116,7 +3116,7 @@ exports[`snapshot test 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "42f548eefa37899f7e461aa78e3cd25bf820ffe93b88601d13a06c3dc46368bc.zip",
+          "S3Key": "[HASH REMOVED].zip",
         },
         "Environment": {
           "Variables": {
@@ -3256,7 +3256,7 @@ exports[`snapshot test 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "8c9107561407eafbb311cc5aff53c31b0b7ae9efad6268c4ac64acc0048413ae.zip",
+          "S3Key": "[HASH REMOVED].zip",
         },
         "Environment": {
           "Variables": {
@@ -3352,7 +3352,7 @@ exports[`snapshot test 1`] = `
                       {
                         "Ref": "AWS::AccountId",
                       },
-                      ":endpoint-config/llm-jp-endpoint-config-20231120155217",
+                      ":endpoint-config/llm-jp-endpoint-config-[TIMESTAMP REMOVED]",
                     ],
                   ],
                 },
@@ -3380,7 +3380,7 @@ exports[`snapshot test 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "2494269eec98c2557e532c8510ca7d18e08af37a3fc0c1ed3c7489217430b03f.zip",
+          "S3Key": "[HASH REMOVED].zip",
         },
         "Environment": {
           "Variables": {
@@ -3476,7 +3476,7 @@ exports[`snapshot test 1`] = `
                       {
                         "Ref": "AWS::AccountId",
                       },
-                      ":endpoint-config/llm-jp-endpoint-config-20231120155217",
+                      ":endpoint-config/llm-jp-endpoint-config-[TIMESTAMP REMOVED]",
                     ],
                   ],
                 },
@@ -3504,7 +3504,7 @@ exports[`snapshot test 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "b583b7211458a029b03a75fbe15afe3f17a10b8ee881890c6960f405a6791df4.zip",
+          "S3Key": "[HASH REMOVED].zip",
         },
         "Environment": {
           "Variables": {
@@ -3635,7 +3635,7 @@ exports[`snapshot test 1`] = `
                       {
                         "Ref": "AWS::AccountId",
                       },
-                      ":endpoint-config/llm-jp-endpoint-config-20231120155217",
+                      ":endpoint-config/llm-jp-endpoint-config-[TIMESTAMP REMOVED]",
                     ],
                   ],
                 },
@@ -3663,7 +3663,7 @@ exports[`snapshot test 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "4aab97388187755a6a859e129b2e86110a35aca89e829347e2d9f1e2728b811b.zip",
+          "S3Key": "[HASH REMOVED].zip",
         },
         "Environment": {
           "Variables": {
@@ -3781,7 +3781,7 @@ exports[`snapshot test 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "0d0177723cb72c44d7ea9744732331d85d40274fe871bf5b7ef0dff3c641a276.zip",
+          "S3Key": "[HASH REMOVED].zip",
         },
         "Environment": {
           "Variables": {
@@ -3892,7 +3892,7 @@ exports[`snapshot test 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "6f5a7b2920a8cb0b899d8d3f5726b5d1909094240bc0855d58fc4db057f9d478.zip",
+          "S3Key": "[HASH REMOVED].zip",
         },
         "Environment": {
           "Variables": {
@@ -3984,7 +3984,7 @@ exports[`snapshot test 1`] = `
                       {
                         "Ref": "AWS::AccountId",
                       },
-                      ":endpoint-config/llm-jp-endpoint-config-20231120155217",
+                      ":endpoint-config/llm-jp-endpoint-config-[TIMESTAMP REMOVED]",
                     ],
                   ],
                 },
@@ -4012,12 +4012,12 @@ exports[`snapshot test 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "a54f181e777572f64a1c5651572493ec5b360f107f8dc05454b3ff2848fcb49c.zip",
+          "S3Key": "[HASH REMOVED].zip",
         },
         "Environment": {
           "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-            "ENDPOINT_CONFIG_NAME": "llm-jp-endpoint-config-20231120155217",
+            "ENDPOINT_CONFIG_NAME": "llm-jp-endpoint-config-[TIMESTAMP REMOVED]",
             "ENDPOINT_NAME": "llm-jp-endpoint",
           },
         },
@@ -4105,7 +4105,7 @@ exports[`snapshot test 1`] = `
                       {
                         "Ref": "AWS::AccountId",
                       },
-                      ":endpoint-config/llm-jp-endpoint-config-20231120155217",
+                      ":endpoint-config/llm-jp-endpoint-config-[TIMESTAMP REMOVED]",
                     ],
                   ],
                 },
@@ -4142,7 +4142,7 @@ exports[`snapshot test 1`] = `
         "destinationBucketName": {
           "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
         },
-        "destinationObjectKey": "fc887722ed888e2b9c9d5efd66439184.zip",
+        "destinationObjectKey": "[HASH REMOVED].zip",
         "environment": {
           "VITE_APP_API_ENDPOINT": {
             "Fn::Join": [
@@ -4181,7 +4181,7 @@ exports[`snapshot test 1`] = `
           "VITE_APP_REGION": {
             "Ref": "AWS::Region",
           },
-          "VITE_APP_SAGEMAKER_ENDPOINT_CONFIG_NAME": "llm-jp-endpoint-config-20231120155217",
+          "VITE_APP_SAGEMAKER_ENDPOINT_CONFIG_NAME": "llm-jp-endpoint-config-[TIMESTAMP REMOVED]",
           "VITE_APP_SAGEMAKER_ENDPOINT_NAME": "llm-jp-endpoint",
           "VITE_APP_SAGEMAKER_MODELS": "[{"name":"llm-jp-13b-instruct-full-jaster-dolly-oasst-v1","path":"models/llm-jp-13b-instruct-full-jaster-dolly-oasst-v1.0.tar.gz","prompt_template_name":"llmJp"},{"name":"llm-jp-13b-instruct-lora-jaster-dolly-oasst-v1","path":"models/llm-jp-13b-instruct-lora-jaster-dolly-oasst-v1.0.tar.gz","prompt_template_name":"llmJp"}]",
           "VITE_APP_SELF_SIGN_UP_ENABLED": "false",
@@ -4199,7 +4199,7 @@ exports[`snapshot test 1`] = `
             "sourceBucketName": {
               "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
             },
-            "sourceObjectKey": "bdd91859d458b67f0c3e0f2823055b6e545d4ad150fd579076124f59660887ca.zip",
+            "sourceObjectKey": "[HASH REMOVED].zip",
           },
         ],
         "type": "NodejsBuild",
@@ -4217,7 +4217,7 @@ exports[`snapshot test 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "e2277687077a2abf9ae1af1cc9565e6715e2ebb62f79ec53aa75a1af9298f642.zip",
+          "S3Key": "[HASH REMOVED].zip",
         },
         "Description": "/opt/awscli/aws",
       },
@@ -4248,7 +4248,7 @@ exports[`snapshot test 1`] = `
           },
         ],
         "SourceObjectKeys": [
-          "fc887722ed888e2b9c9d5efd66439184.zip",
+          "[HASH REMOVED].zip",
         ],
       },
       "Type": "Custom::CDKBucketDeployment",
@@ -5294,7 +5294,7 @@ exports[`snapshot test 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "9eb41a5505d37607ac419321497a4f8c21cf0ee1f9b4a6b29aa04301aea5c7fd.zip",
+          "S3Key": "[HASH REMOVED].zip",
         },
         "Environment": {
           "Variables": {
@@ -5460,7 +5460,7 @@ exports[`snapshot test 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "b7f33614a69548d6bafe224d751a7ef238cde19097415e553fe8b63a4c8fd8a6.zip",
+          "S3Key": "[HASH REMOVED].zip",
         },
         "Description": {
           "Fn::Join": [
@@ -5572,7 +5572,7 @@ exports[`snapshot test 1`] = `
         "LLMsagemakermodelllmjp13binstructlorajasterdollyoasstv1RoleF42A9559",
       ],
       "Properties": {
-        "EndpointConfigName": "llm-jp-endpoint-config-20231120155217",
+        "EndpointConfigName": "llm-jp-endpoint-config-[TIMESTAMP REMOVED]",
         "ProductionVariants": [
           {
             "InitialInstanceCount": 1,
@@ -5614,7 +5614,7 @@ exports[`snapshot test 1`] = `
             "Arn",
           ],
         },
-        "ModelName": "llm-jp-13b-instruct-full-jaster-dolly-oasst-v1-20231120155217",
+        "ModelName": "llm-jp-13b-instruct-full-jaster-dolly-oasst-v1-[TIMESTAMP REMOVED]",
         "PrimaryContainer": {
           "Image": {
             "Fn::Join": [
@@ -5787,7 +5787,7 @@ exports[`snapshot test 1`] = `
             "Arn",
           ],
         },
-        "ModelName": "llm-jp-13b-instruct-lora-jaster-dolly-oasst-v1-20231120155217",
+        "ModelName": "llm-jp-13b-instruct-lora-jaster-dolly-oasst-v1-[TIMESTAMP REMOVED]",
         "PrimaryContainer": {
           "Image": {
             "Fn::Join": [
@@ -5958,7 +5958,7 @@ exports[`snapshot test 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "b49cc8147b0bf86afefc1c551a4b5cf9165167cf31a5d50e4bf169f944f6a363.zip",
+          "S3Key": "[HASH REMOVED].zip",
         },
         "Handler": "index.handler",
         "Role": {
